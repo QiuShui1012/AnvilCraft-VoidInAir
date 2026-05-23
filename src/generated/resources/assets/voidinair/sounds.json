@@ -1,0 +1,134 @@
+{
+  "block.black_cat.base": {
+    "sounds": [
+      {
+        "name": "mob/cat/meow1",
+        "volume": 0.7,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/meow2",
+        "volume": 0.7,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/meow3",
+        "volume": 0.7,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/meow4",
+        "volume": 0.7,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/purreow1",
+        "volume": 0.5,
+        "weight": 66
+      },
+      {
+        "name": "mob/cat/purreow2",
+        "volume": 0.5,
+        "weight": 66
+      },
+      {
+        "name": "mob/cat/idle1",
+        "volume": 0.35,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/idle2",
+        "volume": 0.35,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/idle3",
+        "volume": 0.35,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/idle4",
+        "volume": 0.35,
+        "weight": 132
+      },
+      {
+        "name": "mob/cat/hiss1",
+        "volume": 0.25,
+        "weight": 3
+      },
+      {
+        "name": "mob/cat/hiss2",
+        "volume": 0.25,
+        "weight": 3
+      },
+      {
+        "name": "mob/cat/hiss3",
+        "volume": 0.25,
+        "weight": 3
+      }
+    ]
+  },
+  "block.black_cat.break": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.black_cat.fall": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.black_cat.hit": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.black_cat.land": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.anvil.land"
+  },
+  "block.black_cat.place": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.black_cat.step": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.black_cat.use": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "voidinair:block.black_cat.base"
+      }
+    ],
+    "subtitle": "subtitles.block.anvil.use"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "anvilcraft:normal",
+  "amulet": {
+    "id": "voidinair:snowflake_amulet"
+  },
+  "obtains": {
+    "tags": [
+      {
+        "expected": true,
+        "id": "voidinair:amulet_valid/snowflake"
+      }
+    ]
+  }
+}

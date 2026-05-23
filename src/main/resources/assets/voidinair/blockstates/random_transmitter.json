@@ -1,0 +1,127 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "powered": "false"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_node"
+      }
+    },
+    {
+      "when": {
+        "north": "inactive"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter"
+      }
+    },
+    {
+      "when": {
+        "south": "inactive"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "east": "inactive"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": "inactive"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": "inactive"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "inactive"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter",
+        "x": 90
+      }
+    },
+
+    {
+      "when": {
+        "powered": "true"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_node_on"
+      }
+    },
+    {
+      "when": {
+        "north": "active"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_on"
+      }
+    },
+    {
+      "when": {
+        "south": "active"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_on",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "east": "active"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_on",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": "active"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_on",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": "active"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_on",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "active"
+      },
+      "apply": {
+        "model": "voidinair:block/random_transmitter_on",
+        "x": 90
+      }
+    }
+  ]
+}

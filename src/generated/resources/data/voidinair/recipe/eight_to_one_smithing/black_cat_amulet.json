@@ -1,0 +1,48 @@
+{
+  "type": "anvilcraft:eight_to_one_smithing",
+  "inputs": [
+    {
+      "items": "voidinair:void_amulet"
+    },
+    {
+      "items": "voidinair:snowflake_amulet"
+    },
+    {
+      "items": "voidinair:beehive_amulet"
+    },
+    {
+      "items": "voidinair:gold_amulet"
+    },
+    {
+      "items": "voidinair:dolphin_amulet"
+    },
+    {
+      "items": "voidinair:pumpkin_amulet"
+    },
+    {
+      "items": "voidinair:anvilcraft_amulet"
+    },
+    {
+      "items": "anvilcraft:comrade_amulet"
+    }
+  ],
+  "material": {
+    "items": "anvilcraft:transcendium_block"
+  },
+  "modifiers": [
+    {
+      "type": "anvilcraft:copy_data",
+      "types": [
+        {
+          "type": "voidinair:black_cat_amulet"
+        }
+      ]
+    }
+  ],
+  "result": {
+    "id": "voidinair:black_cat_amulet"
+  },
+  "template": {
+    "items": "anvilcraft:eight_to_one_smithing_template"
+  }
+}

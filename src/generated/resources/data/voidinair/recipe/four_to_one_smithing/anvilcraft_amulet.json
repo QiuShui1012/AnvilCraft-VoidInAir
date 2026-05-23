@@ -1,0 +1,26 @@
+{
+  "type": "anvilcraft:four_to_one_smithing",
+  "inputs": [
+    {
+      "items": "anvilcraft:abnormal_amulet"
+    },
+    {
+      "items": "anvilcraft:anvil_amulet"
+    },
+    {
+      "items": "anvilcraft:gem_amulet"
+    },
+    {
+      "items": "anvilcraft:nature_amulet"
+    }
+  ],
+  "material": {
+    "items": "anvilcraft:transcendium_block"
+  },
+  "result": {
+    "id": "voidinair:anvilcraft_amulet"
+  },
+  "template": {
+    "items": "anvilcraft:four_to_one_smithing_template"
+  }
+}

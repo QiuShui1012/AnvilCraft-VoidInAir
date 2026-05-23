@@ -1,0 +1,20 @@
+{
+  "type": "anvilcraft:jewel_crafting",
+  "ingredients": [
+    {
+      "items": "anvilcraft:silver_ingot"
+    },
+    {
+      "items": "minecraft:powder_snow_bucket"
+    },
+    {
+      "items": "minecraft:powder_snow_bucket"
+    },
+    {
+      "items": "minecraft:powder_snow_bucket"
+    }
+  ],
+  "source": {
+    "items": "voidinair:snowflake_amulet"
+  }
+}

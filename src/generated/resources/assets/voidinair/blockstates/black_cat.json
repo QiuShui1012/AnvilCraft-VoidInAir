@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "voidinair:block/black_cat",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "voidinair:block/black_cat",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "voidinair:block/black_cat"
+    },
+    "facing=west": {
+      "model": "voidinair:block/black_cat",
+      "y": 90
+    }
+  }
+}

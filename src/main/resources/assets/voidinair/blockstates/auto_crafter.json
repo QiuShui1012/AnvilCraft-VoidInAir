@@ -1,0 +1,48 @@
+{
+  "variants": {
+    "facing=down,overload=false": {
+      "model": "voidinair:block/auto_crafter_vertical",
+      "x": 180
+    },
+    "facing=east,overload=false": {
+      "model": "voidinair:block/auto_crafter",
+      "y": 90
+    },
+    "facing=north,overload=false": {
+      "model": "voidinair:block/auto_crafter"
+    },
+    "facing=south,overload=false": {
+      "model": "voidinair:block/auto_crafter",
+      "y": 180
+    },
+    "facing=up,overload=false": {
+      "model": "voidinair:block/auto_crafter_vertical"
+    },
+    "facing=west,overload=false": {
+      "model": "voidinair:block/auto_crafter",
+      "y": 270
+    },
+    "facing=down,overload=true": {
+      "model": "voidinair:block/auto_crafter_vertical_overload",
+      "x": 180
+    },
+    "facing=east,overload=true": {
+      "model": "voidinair:block/auto_crafter_overload",
+      "y": 90
+    },
+    "facing=north,overload=true": {
+      "model": "voidinair:block/auto_crafter_overload"
+    },
+    "facing=south,overload=true": {
+      "model": "voidinair:block/auto_crafter_overload",
+      "y": 180
+    },
+    "facing=up,overload=true": {
+      "model": "voidinair:block/auto_crafter_vertical_overload"
+    },
+    "facing=west,overload=true": {
+      "model": "voidinair:block/auto_crafter_overload",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "anvilcraft:jewel_crafting",
+  "ingredients": [
+    {
+      "items": "anvilcraft:silver_ingot"
+    },
+    {
+      "count": 16,
+      "items": "minecraft:pumpkin_seeds"
+    },
+    {
+      "count": 4,
+      "items": "minecraft:carved_pumpkin"
+    }
+  ],
+  "source": {
+    "items": "voidinair:pumpkin_amulet"
+  }
+}

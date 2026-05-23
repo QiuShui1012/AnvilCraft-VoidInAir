@@ -1,0 +1,19 @@
+{
+  "type": "anvilcraft:jewel_crafting",
+  "ingredients": [
+    {
+      "items": "anvilcraft:silver_ingot"
+    },
+    {
+      "count": 4,
+      "items": "minecraft:prismarine_shard"
+    },
+    {
+      "count": 4,
+      "items": "minecraft:prismarine_crystals"
+    }
+  ],
+  "source": {
+    "items": "voidinair:dolphin_amulet"
+  }
+}

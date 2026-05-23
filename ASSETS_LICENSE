@@ -1,0 +1,104 @@
+# ASSETS LICENSE FOR VOIDINAIR MOD
+
+Copyright (c) 2026 QiuShui1012
+
+All Rights Reserved unless explicitly granted in this license.
+
+---
+
+## 1. Scope
+
+This license applies to all non-code asset files located in the following directory of the VoidInAir mod:
+
+    src/main/resources/assets/voidinair/
+
+These assets include, but are not limited to, textures (textures/), models (models/), sounds (sounds/), language files (lang/), and any other resource files within the aforementioned directory. Hereinafter referred to as "the Assets".
+
+---
+
+## 2. Third-Party Copyrighted Materials
+
+The Assets contain the following third-party works. The copyright of these works remains with their respective original authors, and they are included in this mod with written authorization:
+
+### 2.1 Assets by CrazyDataVolt (Copyright 2025-2026)
+
+- src/main/resources/assets/voidinair/textures/item/void_amulet.png
+- src/main/resources/assets/voidinair/textures/item/beehive_amulet.png
+- src/main/resources/assets/voidinair/textures/item/pumpkin_amulet.png
+- src/main/resources/assets/voidinair/textures/item/gold_amulet.png
+- src/main/resources/assets/voidinair/textures/item/snowflake_amulet.png
+
+### 2.2 Assets by XeKr (Copyright 2026)
+
+- src/main/resources/assets/voidinair/textures/models/block/black_cat.json
+- src/main/resources/assets/voidinair/textures/block/black_cat.png
+- src/main/resources/assets/voidinair/textures/block/black_cat_bottom.png
+- src/main/resources/assets/voidinair/textures/block/black_cat_bottom_top.png
+- src/main/resources/assets/voidinair/textures/block/black_cat_side.png
+- src/main/resources/assets/voidinair/textures/block/black_cat_top.png
+- src/main/resources/assets/voidinair/textures/block/black_cat_top_bottom.png
+
+### 2.3 Assets by QiuShui1012 (Copyright 2026)
+
+All other assets within the `assets/voidinair/` directory not explicitly listed in Sections 2.1 and 2.2 above are original works created by QiuShui1012 and are covered by this license.
+
+---
+
+## 3. Explicit Grants
+
+Notwithstanding the "All Rights Reserved" statement above, the author hereby explicitly grants the following permissions:
+
+### 3.1 Gameplay Use
+
+Any user is permitted to load, invoke, cache, and display the Assets while playing the VoidInAir mod on both client and server sides, without the need for separate authorization.
+
+### 3.2 Redistribution as Part of the Mod
+
+The Assets are **permitted to be redistributed only as part of the complete VoidInAir mod JAR file**. This includes, but is not limited to:
+- Packaging the mod into a modpack for distribution
+- Distributing the complete mod on servers
+
+**It is strictly prohibited** to extract any part of the Assets (including but not limited to individual texture files, model files, sound files) from the mod JAR and redistribute them separately or bundled with other works.
+
+### 3.3 Language Files
+
+The language files located in the following directory are granted additional permissions:
+
+    assets/voidinair/lang/
+
+For these language files (.json format), the following are permitted:
+- Extraction, copying, and modification
+- Use for any purpose, including translation patches, language packs, and compatibility patches for other mods
+- Redistribution (whether modified or unmodified)
+
+---
+
+## 4. Explicit Prohibitions
+
+Except for the explicit grants in Section 3 above, all other actions are strictly prohibited, including but not limited to:
+
+- Extracting and independently redistributing non-language assets, including textures (textures/), models (models/), sounds (sounds/), etc.
+- Modifying non-language assets and distributing modified versions
+- Using the Assets (excluding language files) for commercial purposes, including but not limited to selling, paid access, or as part of a commercial product
+- Claiming ownership or copyright of the Assets in any way
+
+---
+
+## 5. Disclaimer
+
+THE ASSETS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE ASSETS OR THE USE OR OTHER DEALINGS IN THE ASSETS.
+
+---
+
+## 6. Questions and Contact
+
+If you have any questions regarding this license, please contact the author:
+
+- Author: QiuShui1012
+- Email: qiushui1012@foxmail.com
+
+---
+
+## 7. License Version
+
+This license is version 1.0 of the VoidInAir Assets License. The author reserves the right to publish revised versions. When you receive the Assets, if a specific version is specified, you may follow that version; if a proxy is designated to decide future versions, that proxy's acceptance statement will authorize you to choose that version.
