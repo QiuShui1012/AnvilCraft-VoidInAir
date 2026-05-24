@@ -78,7 +78,7 @@ jobs:
         continue-on-error: false
         with:
           mods: |
-            build/libs/anvilcraft-neoforge-${{ steps.version.outputs.version }}.jar
+            build/libs/anvilcraft-voidinair-neoforge-${{ steps.version.outputs.version }}.jar
           minecraft_version: '26.1.2'
           mod_loader: 'neoforge'
           loader_version: '26.1.2.64-beta'
