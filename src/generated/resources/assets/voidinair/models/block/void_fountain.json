@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "anvilcraft:block/sturdy_deepslate",
+    "side": "voidinair:block/void_fountain",
+    "top": "voidinair:block/void_fountain_top"
+  }
+}

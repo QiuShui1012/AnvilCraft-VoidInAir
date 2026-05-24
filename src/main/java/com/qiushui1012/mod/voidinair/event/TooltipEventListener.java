@@ -14,6 +14,7 @@ import java.util.function.Consumer;
 
 @EventBusSubscriber
 public class TooltipEventListener {
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public static void onTooltip(AppendCustomHoverTextEvent event) {
         final ItemStack stack = event.getStack();

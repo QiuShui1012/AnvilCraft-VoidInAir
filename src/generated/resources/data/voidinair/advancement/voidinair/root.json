@@ -1,0 +1,27 @@
+{
+  "criteria": {
+    "join": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "anvilcraft:textures/gui/misc/background/advancement.png",
+    "description": {
+      "translate": "advancements.voidinair.root.description"
+    },
+    "icon": {
+      "id": "minecraft:cat_spawn_egg"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.voidinair.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "join"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

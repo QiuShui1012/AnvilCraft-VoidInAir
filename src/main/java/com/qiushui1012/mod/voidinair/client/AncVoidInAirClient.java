@@ -8,6 +8,6 @@ import net.neoforged.fml.common.Mod;
 
 @Mod(value = AncVoidInAir.MOD_ID, dist = Dist.CLIENT)
 public class AncVoidInAirClient {
-    public AncVoidInAirClient(IEventBus modEventBus, ModContainer ignored) {
+    public AncVoidInAirClient(IEventBus ignoredModEventBus, ModContainer ignored) {
     }
 }
