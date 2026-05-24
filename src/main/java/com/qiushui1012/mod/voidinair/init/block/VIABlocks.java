@@ -3,6 +3,8 @@ package com.qiushui1012.mod.voidinair.init.block;
 import com.mojang.math.Transformation;
 import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import com.qiushui1012.mod.voidinair.api.skull.SimpleSkullBlockType;
+import com.qiushui1012.mod.voidinair.block.decoration.BlackCatHeadBlock;
+import com.qiushui1012.mod.voidinair.block.decoration.BlackCatWallHeadBlock;
 import com.qiushui1012.mod.voidinair.block.production.VoidFountainBlock;
 import com.qiushui1012.mod.voidinair.init.item.VIAItemGroup;
 import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
@@ -27,8 +29,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SkullBlock;
-import net.minecraft.world.level.block.WallSkullBlock;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -65,12 +66,17 @@ public class VIABlocks {
         .simpleItem()
         .register();
 
-    public static final BlockEntry<SkullBlock> BLACK_CAT_HEAD = REGISTRUM
-        .block("black_cat_head", properties -> new SkullBlock(SimpleSkullBlockType.VOID, properties))
-        .properties(properties -> properties.strength(1.0F).pushReaction(PushReaction.DESTROY).noOcclusion())
+    public static final BlockEntry<BlackCatHeadBlock> BLACK_CAT_HEAD = REGISTRUM
+        .block("black_cat_head", BlackCatHeadBlock::new)
+        .properties(properties -> properties
+            .strength(1.0F)
+            .pushReaction(PushReaction.DESTROY)
+            .noOcclusion()
+            .instrument(NoteBlockInstrument.CUSTOM_HEAD)
+        )
         .blockstate(() -> new NonNullBiConsumer<>() {
             @Override
-            public void accept(DataGenContext<Block, SkullBlock> ctx, RegistrumBlockModelGenerator generator) {
+            public void accept(DataGenContext<Block, BlackCatHeadBlock> ctx, RegistrumBlockModelGenerator generator) {
                 @SuppressWarnings("deprecation")
                 MultiVariant skull = BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
                 generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ctx.get(), skull));
@@ -99,8 +105,8 @@ public class VIABlocks {
         .build()
         .register();
 
-    public static final BlockEntry<WallSkullBlock> BLACK_CAT_WALL_HEAD = REGISTRUM
-        .block("black_cat_wall_head", properties -> new WallSkullBlock(SimpleSkullBlockType.VOID, properties))
+    public static final BlockEntry<BlackCatWallHeadBlock> BLACK_CAT_WALL_HEAD = REGISTRUM
+        .block("black_cat_wall_head", BlackCatWallHeadBlock::new)
         .properties(properties -> properties
             .overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE, AncVoidInAir.of("blocks/black_cat_head"))))
             .overrideDescription(Util.makeDescriptionId("block", AncVoidInAir.of("blocks/black_cat_head")))
@@ -109,7 +115,7 @@ public class VIABlocks {
         )
         .blockstate(() -> new NonNullBiConsumer<>() {
             @Override
-            public void accept(DataGenContext<Block, WallSkullBlock> ctx, RegistrumBlockModelGenerator generator) {
+            public void accept(DataGenContext<Block, BlackCatWallHeadBlock> ctx, RegistrumBlockModelGenerator generator) {
                 @SuppressWarnings("deprecation")
                 MultiVariant skull = BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
                 generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ctx.get(), skull));

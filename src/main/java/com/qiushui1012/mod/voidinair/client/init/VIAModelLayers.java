@@ -41,7 +41,7 @@ public class VIAModelLayers {
                 .addBox("nose", -1.5F, -0.001F, -4.0F, 3, 2, 2, 0, 24)
                 .addBox("ear1", -2.0F, -3.0F, 0.0F, 1, 1, 2, 0, 10)
                 .addBox("ear2", 1.0F, -3.0F, 0.0F, 1, 1, 2, 6, 10),
-            PartPose.offset(0F, -2.125F, 2F)
+            PartPose.offset(0F, -2F, 2F)
         );
 
         return LayerDefinition.create(mesh, 64, 32);

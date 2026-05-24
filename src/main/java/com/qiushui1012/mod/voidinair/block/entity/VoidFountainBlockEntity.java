@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -46,26 +47,29 @@ public class VoidFountainBlockEntity extends BlockEntity {
         if (!MathUtil.isInRange(this.getBlockPos().getY(), level.getMinY(), level.getMinY() + 8)) return;
 
         BlockState aroundState = this.getAroundBlock(level);
-        if (aroundState.isAir()) return;
+        if (aroundState == null) return;
         BlockState aboveState = level.getBlockState(this.getBlockPos().above());
         if (!aboveState.isAir()) return;
 
         level.setBlockAndUpdate(this.getBlockPos().above(), this.getRandomizedResult(level, level.getRandom(), aroundState));
     }
 
-    private BlockState getAroundBlock(ServerLevel level) {
+    private @Nullable BlockState getAroundBlock(ServerLevel level) {
         BlockPos pos = this.getBlockPos();
-        BlockState around = Blocks.AIR.defaultBlockState();
+        BlockState around = null;
+        boolean statesNotMatch = false;
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState state = level.getBlockState(pos.relative(direction));
             if (state.isAir()) return Blocks.AIR.defaultBlockState();
-            if (around.isAir()) {
+            if (around == null) {
                 around = state;
-            } else if (!this.isStatesMatch(around, state)) {
-                return Blocks.AIR.defaultBlockState();
+            } else if (around.is(state.getBlock())) {
+                statesNotMatch |= !this.isStatesMatch(around, state);
+            } else {
+                return null;
             }
         }
-        return around;
+        return statesNotMatch ? Blocks.AIR.defaultBlockState() : around;
     }
 
     private boolean isStatesMatch(BlockState a, BlockState b) {
@@ -101,9 +105,8 @@ public class VoidFountainBlockEntity extends BlockEntity {
             return ModBlocks.VOID_STONE.getDefaultState();
         } else if (randomized < 0.4) {
             return ModBlocks.EARTH_CORE_SHARD_ORE.getDefaultState();
-        } else if (randomized < 0.43) {
-            return around;
         } else {
+            if (!around.isAir() && randomized < 0.43) return around;
             return VoidMatterBlock.voidDecay(level, level.getRandom());
         }
     }
