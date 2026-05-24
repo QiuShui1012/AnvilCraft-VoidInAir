@@ -6,6 +6,7 @@ on:
       - releases/**
       - dev/**
     paths:
+      - .github/workflows/pull_request.yml
       - src/**
       - gradle/**
       - build.gradle
@@ -28,6 +29,12 @@ jobs:
         with:
           path: gradle.properties
           properties: 'mod_id mod_name java_version'
+
+      - name: Make Colon-free Mod Name
+        id: 'colon_free_mod_name'
+        run: |
+          MESSAGE=$(echo "${{ steps.properties.outputs.mod_name }}" | tr -d ':')
+          echo "value=$MESSAGE" >> $GITHUB_OUTPUT
 
       - name: Setup Java ${{ steps.properties.outputs.java_version }}
         uses: actions/setup-java@v3.6.0
@@ -54,7 +61,7 @@ jobs:
       - name: capture build artifacts
         uses: actions/upload-artifact@v4.3.3
         with:
-          name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}"
+          name: "${{ steps.colon_free_mod_name.outputs.value }} ${{ steps.version.outputs.version }}"
           path: build/libs/anvilcraft-voidinair-neoforge-${{ steps.version.outputs.version }}.jar
 
       - name: gametest
