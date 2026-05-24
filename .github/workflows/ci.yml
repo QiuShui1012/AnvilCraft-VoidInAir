@@ -95,7 +95,7 @@ jobs:
           loader_version: ${{ steps.toml.outputs.versions_neoforge }}
           extra-mods: |
             anvil-lib:${{ steps.toml.outputs.versions_anvillib }}
-            anvilcraft:${{ steps.toml.outputs.versions_anvilcraft }}
+            anvilcraft:${{ steps.toml.outputs.versions_minecraft }}-${{ steps.toml.outputs.versions_anvilcraft }}
           quiet-setup: 'True'
 
       - name: publish neoforge mc mod
