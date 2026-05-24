@@ -28,6 +28,14 @@ jobs:
           MESSAGE=$(echo "${{ steps.properties.outputs.mod_name }}" | tr -d ':')
           echo "value=$MESSAGE" >> $GITHUB_OUTPUT
 
+      - name: Read TOML
+        id: toml
+        uses: Gu-ZT/toml-reader-action@main
+        with:
+          file: gradle/libs.versions.toml
+          fields: |
+            versions.minecraft
+
       - name: Setup Java ${{ steps.properties.outputs.java_version }}
         uses: actions/setup-java@v3.6.0
         with:
@@ -76,14 +84,14 @@ jobs:
         with:
           name: "${{ steps.colon_free_mod_name.outputs.value }} For NeoForge v${{ steps.version.outputs.version }}"
           version: ${{ steps.version.outputs.version }}
-          game-versions: 26.1.2
+          game-versions: ${{ steps.toml.outputs.versions_minecraft }}
           version-type: ${{ env.VERSION_TYPE }}
           java: ${{ steps.properties.outputs.java_version }}
           fail-mode: skip
           changelog: ${{ github.event.release.body }}
           dependencies: |
             anvil-lib(embedded){modrinth:nKAcAL9b}{curseforge:1484302}
-            anvilcraft(embedded){modrinth:vuISAWPc}{curseforge:986251}
+            anvilcraft(required){modrinth:vuISAWPc}{curseforge:986251}
 
           modrinth-id: 9SySIjXk
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}

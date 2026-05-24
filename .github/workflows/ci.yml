@@ -37,6 +37,17 @@ jobs:
           MESSAGE=$(echo "${{ steps.properties.outputs.mod_name }}" | tr -d ':')
           echo "value=$MESSAGE" >> $GITHUB_OUTPUT
 
+      - name: Read TOML
+        id: toml
+        uses: Gu-ZT/toml-reader-action@main
+        with:
+          file: gradle/libs.versions.toml
+          fields: |
+            versions.minecraft
+            versions.neoforge
+            versions.anvillib
+            versions.anvilcraft
+
       - name: Setup Java ${{ steps.properties.outputs.java_version }}
         uses: actions/setup-java@v3.6.0
         with:
@@ -79,12 +90,12 @@ jobs:
         with:
           mods: |
             build/libs/anvilcraft-voidinair-neoforge-${{ steps.version.outputs.version }}.jar
-          minecraft_version: '26.1.2'
+          minecraft_version: ${{ steps.toml.outputs.versions_minecraft }}
           mod_loader: 'neoforge'
-          loader_version: '26.1.2.64-beta'
+          loader_version: ${{ steps.toml.outputs.versions_neoforge }}
           extra-mods: |
-            anvil-lib:2.0.0+snapshot.384
-            anvilcraft:1.6.0+snapshot.1714
+            anvil-lib:${{ steps.toml.outputs.versions_anvillib }}
+            anvilcraft:${{ steps.toml.outputs.versions_anvilcraft }}
           quiet-setup: 'True'
 
       - name: publish neoforge mc mod
@@ -93,14 +104,14 @@ jobs:
         with:
           name: "${{ steps.colon_free_mod_name.outputs.value }} For NeoForge v${{ steps.version.outputs.version }}"
           version: ${{ steps.version.outputs.version }}
-          game-versions: 26.1.2
+          game-versions: ${{ steps.toml.outputs.versions_minecraft }}
           version-type: ${{ env.VERSION_TYPE }}
           java: ${{ steps.properties.outputs.java_version }}
           fail-mode: skip
           changelog: Early test version, please download and play with caution. 早期测试版本，请谨慎下载游玩
           dependencies: |
             anvil-lib(embedded){modrinth:nKAcAL9b}{curseforge:1484302}
-            anvilcraft(embedded){modrinth:vuISAWPc}{curseforge:986251}
+            anvilcraft(required){modrinth:vuISAWPc}{curseforge:986251}
 
           modrinth-id: 9SySIjXk
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
