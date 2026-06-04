@@ -1,0 +1,19 @@
+{
+  "type": "anvilcraft:jewel_crafting",
+  "ingredients": [
+    {
+      "items": "anvilcraft:silver_ingot"
+    },
+    {
+      "count": 8,
+      "items": "minecraft:honeycomb"
+    },
+    {
+      "count": 2,
+      "items": "minecraft:honey_block"
+    }
+  ],
+  "source": {
+    "items": "voidinair:beehive_amulet"
+  }
+}

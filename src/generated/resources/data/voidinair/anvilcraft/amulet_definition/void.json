@@ -1,0 +1,14 @@
+{
+  "type": "anvilcraft:normal",
+  "amulet": {
+    "id": "voidinair:void_amulet"
+  },
+  "obtain": {
+    "tags": [
+      {
+        "expected": true,
+        "id": "voidinair:amulet_valid/void"
+      }
+    ]
+  }
+}
