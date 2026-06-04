@@ -11,7 +11,7 @@ import net.minecraft.world.item.consume_effects.ClearAllStatusEffectsConsumeEffe
 
 import java.util.List;
 
-public class VIADeathProtections {
+public class ViaDeathProtections {
     public static final DeathProtection TOTEM_OF_VOID = new DeathProtection(List.of(
         ClearAllStatusEffectsConsumeEffect.INSTANCE,
         new ApplyStatusEffectsConsumeEffect(List.of(

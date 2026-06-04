@@ -1,7 +1,7 @@
 package com.qiushui1012.mod.voidinair.data.lang;
 
 import com.qiushui1012.mod.voidinair.AncVoidInAir;
-import com.qiushui1012.mod.voidinair.config.VIAServerConfig;
+import com.qiushui1012.mod.voidinair.config.ViaServerConfig;
 import dev.anvilcraft.lib.v2.config.ConfigData;
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumLangProvider;
 import lombok.SneakyThrows;
@@ -34,7 +34,7 @@ public class ConfigScreenLang {
             providerProxyConstructor.newInstance(provider),
             AncVoidInAir.MOD_ID,
             ModConfig.Type.SERVER,
-            VIAServerConfig.class,
+            ViaServerConfig.class,
             null
         );
     }

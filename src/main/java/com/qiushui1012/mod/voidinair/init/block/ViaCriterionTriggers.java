@@ -8,7 +8,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class VIACriterionTriggers {
+public class ViaCriterionTriggers {
     private static final DeferredRegister<CriterionTrigger<?>> REGISTER = DeferredRegister.create(
         Registries.TRIGGER_TYPE,
         AncVoidInAir.MOD_ID

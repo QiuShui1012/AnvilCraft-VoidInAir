@@ -1,6 +1,6 @@
 package com.qiushui1012.mod.voidinair.event;
 
-import com.qiushui1012.mod.voidinair.init.block.VIABlocks;
+import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import dev.anvilcraft.lib.v2.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -18,8 +18,8 @@ public class NoteBlockPlayEventListener {
         Level level = Util.cast(event.getLevel());
         BlockPos pos = event.getPos();
         if (
-            !level.getBlockState(pos.above()).is(VIABlocks.BLACK_CAT_HEAD)
-            && !level.getBlockState(pos.above()).is(VIABlocks.BLACK_CAT_WALL_HEAD)
+            !level.getBlockState(pos.above()).is(ViaBlocks.BLACK_CAT_HEAD)
+            && !level.getBlockState(pos.above()).is(ViaBlocks.BLACK_CAT_WALL_HEAD)
         ) {
             return;
         }

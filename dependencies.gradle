@@ -1,10 +1,17 @@
 dependencies {
     // AnvilLib
-    runtimeOnly libs.anvillib
-    compileOnly libs.bundles.anvillib
+    api libs.anvillib
     interfaceInjectionData libs.anvillib.recipe
     interfaceInjectionData libs.anvillib.moveableEntityBlock
 
     // AnvilCraft
     api libs.anvilcraft
+
+    // JEI
+    compileOnly(libs.bundles.jei) { transitive = false }
+    runtimeOnly(libs.jei.neoforge) { transitive = false }
+
+    // Jade
+    compileOnly libs.jade
+    runtimeOnly libs.jade
 }

@@ -2,7 +2,8 @@ package com.qiushui1012.mod.voidinair.item.tooltip;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.qiushui1012.mod.voidinair.init.item.VIAItems;
+import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
+import com.qiushui1012.mod.voidinair.init.item.ViaItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -21,10 +22,18 @@ public class ItemTooltipManager {
     private static final Map<Item, String> NORMAL = Maps.newHashMap();
     private static final Map<Item, String> SHIFT = Maps.newHashMap();
 
-    // CHECKSTYLE.SUPPRESS: LineLength for +3 lines
+    // CHECKSTYLE.SUPPRESS: LineLength for +11 lines
     static {
-        SHIFT.put(VIAItems.VOID_AMULET.asItem(), "Grants immunity of void.\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
-        SHIFT.put(VIAItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void. \nWhen trigger, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
+        NORMAL.put(ViaBlocks.BLACK_CAT.asItem(), "Cute little black cat. §8§mThe Void.§r");
+        NORMAL.put(ViaBlocks.VOID_FOUNTAIN.asItem(), "Similar to Mineral Fountain, but can only produce the result of Void Decay.\nTrying to generate blocks like Mineral Fountain can lead to some unusual things...");
+        NORMAL.put(ViaItems.SNOWFLAKE_AMULET.asItem(), "Grants immunity of freeze and lets you to walk on the powder snow.");
+        NORMAL.put(ViaItems.BEEHIVE_AMULET.asItem(), "Grants immunity of bees and lets you to safely collect honeycombs and honey.");
+        NORMAL.put(ViaItems.GOLD_AMULET.asItem(), "Clothe you in golden armor in the eyes of the piglin.");
+        NORMAL.put(ViaItems.DOLPHIN_AMULET.asItem(), "Gives you Dolphin Grace III and making it less likely for the Guardians to notice.");
+        NORMAL.put(ViaItems.TRANSCENDED_AMULET.asItem(), "Includes all AnvilCraft's and Void in Air's amulet effects (except Abnormal Amulet).");
+
+        SHIFT.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void. \nWhen trigger, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
+        SHIFT.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of void.\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
 
         ImmutableMap.Builder<Item, String> allTooltips = ImmutableMap.builder();
         allTooltips.putAll(NORMAL);

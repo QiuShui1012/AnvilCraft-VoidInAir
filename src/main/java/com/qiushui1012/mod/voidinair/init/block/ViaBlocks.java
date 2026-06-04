@@ -6,14 +6,18 @@ import com.qiushui1012.mod.voidinair.api.skull.SimpleSkullBlockType;
 import com.qiushui1012.mod.voidinair.block.decoration.BlackCatHeadBlock;
 import com.qiushui1012.mod.voidinair.block.decoration.BlackCatWallHeadBlock;
 import com.qiushui1012.mod.voidinair.block.production.VoidFountainBlock;
-import com.qiushui1012.mod.voidinair.init.item.VIAItemGroup;
+import com.qiushui1012.mod.voidinair.block.workstation.BlackCatBlock;
+import com.qiushui1012.mod.voidinair.init.item.ViaItemGroup;
 import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumBlockModelGenerator;
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumItemModelGenerator;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import dev.dubhe.anvilcraft.AnvilCraft;
+import dev.dubhe.anvilcraft.data.AnvilCraftDatagen;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
+import dev.dubhe.anvilcraft.init.item.ModItems;
+import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.model.ItemModelUtils;
@@ -22,7 +26,10 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.special.SkullSpecialRenderer;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
@@ -40,10 +47,33 @@ import java.util.Optional;
 import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
 
 @SuppressWarnings("Convert2Lambda")
-public class VIABlocks {
+public class ViaBlocks {
     static {
-        REGISTRUM.defaultCreativeTab(VIAItemGroup.INSTANCE.getKey());
+        REGISTRUM.defaultCreativeTab(ViaItemGroup.INSTANCE.getKey());
     }
+
+    public static final BlockEntry<BlackCatBlock> BLACK_CAT = REGISTRUM
+        .block("black_cat", BlackCatBlock::new)
+        .initialProperties(ModBlocks.NEOFORGE)
+        .properties(properties -> properties.sound(BlackCatBlock.SOUND_TYPE))
+        .blockstate(DataGenUtil::horizontalFacingBlockInverted)
+        .recipe((ctx, provider) -> {
+            HolderGetter<Item> items = provider.getItems();
+            ShapedRecipeBuilder.shaped(items, RecipeCategory.BUILDING_BLOCKS, ctx.get())
+                .pattern("MMM")
+                .pattern(" B ")
+                .pattern("BBB")
+                .define('B', ModBlocks.VOID_MATTER_BLOCK)
+                .define('M', ModItems.VOID_MATTER)
+                .unlockedBy(AnvilCraftDatagen.hasItem(ModItems.VOID_MATTER), AnvilCraftDatagen.has(items, ModItems.VOID_MATTER))
+                .unlockedBy(
+                    AnvilCraftDatagen.hasItem(ModBlocks.VOID_MATTER_BLOCK),
+                    AnvilCraftDatagen.has(items, ModBlocks.VOID_MATTER_BLOCK)
+                )
+                .save(provider);
+        })
+        .simpleItem()
+        .register();
 
     public static final BlockEntry<VoidFountainBlock> VOID_FOUNTAIN = REGISTRUM
         .block("void_fountain", VoidFountainBlock::new)
@@ -82,7 +112,7 @@ public class VIABlocks {
                 generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ctx.get(), skull));
             }
         })
-        .item((block, properties) -> new StandingAndWallBlockItem(block, VIABlocks.BLACK_CAT_WALL_HEAD.get(), Direction.DOWN, properties))
+        .item((block, properties) -> new StandingAndWallBlockItem(block, ViaBlocks.BLACK_CAT_WALL_HEAD.get(), Direction.DOWN, properties))
         .model(() -> new NonNullBiConsumer<>() {
             @Override
             public void accept(DataGenContext<Item, StandingAndWallBlockItem> ctx, RegistrumItemModelGenerator generator) {
@@ -104,7 +134,6 @@ public class VIABlocks {
         })
         .build()
         .register();
-
     public static final BlockEntry<BlackCatWallHeadBlock> BLACK_CAT_WALL_HEAD = REGISTRUM
         .block("black_cat_wall_head", BlackCatWallHeadBlock::new)
         .properties(properties -> properties

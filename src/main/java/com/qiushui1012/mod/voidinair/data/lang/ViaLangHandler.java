@@ -2,7 +2,7 @@ package com.qiushui1012.mod.voidinair.data.lang;
 
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumLangProvider;
 
-public class VIALangHandler {
+public class ViaLangHandler {
     /**
      * 语言文件初始化
      *

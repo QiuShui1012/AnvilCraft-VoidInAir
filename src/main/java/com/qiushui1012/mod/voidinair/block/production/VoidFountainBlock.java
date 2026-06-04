@@ -3,7 +3,7 @@ package com.qiushui1012.mod.voidinair.block.production;
 import com.mojang.serialization.MapCodec;
 import com.qiushui1012.mod.voidinair.advancement.AdvancementTriggers;
 import com.qiushui1012.mod.voidinair.block.entity.VoidFountainBlockEntity;
-import com.qiushui1012.mod.voidinair.init.block.VIABlockEntities;
+import com.qiushui1012.mod.voidinair.init.block.ViaBlockEntities;
 import dev.anvilcraft.lib.v2.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -29,7 +29,7 @@ public class VoidFountainBlock extends BaseEntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return VIABlockEntities.VOID_FOUNTAIN.create(pos, state);
+        return ViaBlockEntities.VOID_FOUNTAIN.create(pos, state);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class VoidFountainBlock extends BaseEntityBlock {
         if (level.isClientSide()) return null;
         return BaseEntityBlock.createTickerHelper(
             type,
-            VIABlockEntities.VOID_FOUNTAIN.get(),
+            ViaBlockEntities.VOID_FOUNTAIN.get(),
             (tickLevel, _, _, be) -> be.tick(Util.cast(tickLevel))
         );
     }
@@ -58,7 +58,7 @@ public class VoidFountainBlock extends BaseEntityBlock {
 
     private void resetCooldown(LevelAccessor level, BlockPos pos) {
         if (level.isClientSide()) return;
-        level.getBlockEntity(pos, VIABlockEntities.VOID_FOUNTAIN.get())
+        level.getBlockEntity(pos, ViaBlockEntities.VOID_FOUNTAIN.get())
             .ifPresent(VoidFountainBlockEntity::resetCooldown);
     }
 }

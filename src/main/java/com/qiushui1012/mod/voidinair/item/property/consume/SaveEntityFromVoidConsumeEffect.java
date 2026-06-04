@@ -1,7 +1,7 @@
 package com.qiushui1012.mod.voidinair.item.property.consume;
 
 import com.mojang.serialization.MapCodec;
-import com.qiushui1012.mod.voidinair.init.item.VIAConsumeEffects;
+import com.qiushui1012.mod.voidinair.init.item.ViaConsumeEffects;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Direction;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,7 +24,7 @@ public record SaveEntityFromVoidConsumeEffect() implements ConsumeEffect {
 
     @Override
     public Type<SaveEntityFromVoidConsumeEffect> getType() {
-        return VIAConsumeEffects.SAVE_ENTITY_FROM_VOID.get();
+        return ViaConsumeEffects.SAVE_ENTITY_FROM_VOID.get();
     }
 
     @Override

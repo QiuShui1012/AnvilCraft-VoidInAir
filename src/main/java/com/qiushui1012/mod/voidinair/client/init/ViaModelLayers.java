@@ -14,19 +14,19 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 @EventBusSubscriber(Dist.CLIENT)
-public class VIAModelLayers {
+public class ViaModelLayers {
     public static final ModelLayerLocation BLACK_CAT_HEAD = new ModelLayerLocation(SimpleSkullBlockType.VOID.id(), "main");
 
     @SubscribeEvent
     public static void on(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(BLACK_CAT_HEAD, VIAModelLayers::createBlackCatHeadLayDef);
+        event.registerLayerDefinition(BLACK_CAT_HEAD, ViaModelLayers::createBlackCatHeadLayDef);
     }
 
     @SubscribeEvent
     public static void on(EntityRenderersEvent.CreateSkullModels event) {
         event.registerSkullModel(
             SimpleSkullBlockType.VOID,
-            VIAModelLayers.BLACK_CAT_HEAD,
+            ViaModelLayers.BLACK_CAT_HEAD,
             Identifier.withDefaultNamespace("textures/entity/cat/cat_all_black.png")
         );
     }

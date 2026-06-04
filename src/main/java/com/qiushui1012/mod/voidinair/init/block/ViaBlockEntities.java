@@ -6,10 +6,10 @@ import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 // CHECKSTYLE.SUPPRESS: AvoidStaticImport for +1 lines
 import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
 
-public class VIABlockEntities {
+public class ViaBlockEntities {
     public static final BlockEntityEntry<VoidFountainBlockEntity> VOID_FOUNTAIN = REGISTRUM
         .blockEntity("void_fountain", VoidFountainBlockEntity::new)
-        .validBlock(VIABlocks.VOID_FOUNTAIN)
+        .validBlock(ViaBlocks.VOID_FOUNTAIN)
         .register();
 
     public static void init() {

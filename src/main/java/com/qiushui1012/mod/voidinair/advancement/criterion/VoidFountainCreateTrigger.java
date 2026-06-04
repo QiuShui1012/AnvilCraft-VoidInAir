@@ -2,7 +2,7 @@ package com.qiushui1012.mod.voidinair.advancement.criterion;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.qiushui1012.mod.voidinair.init.block.VIACriterionTriggers;
+import com.qiushui1012.mod.voidinair.init.block.ViaCriterionTriggers;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.ContextAwarePredicate;
 import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
@@ -28,7 +28,7 @@ public class VoidFountainCreateTrigger extends SimpleCriterionTrigger<VoidFounta
         ).apply(ins, TriggerInstance::new));
 
         public static Criterion<TriggerInstance> create() {
-            return VIACriterionTriggers.VOID_FOUNTAIN_CREATE.get().createCriterion(new TriggerInstance(Optional.empty()));
+            return ViaCriterionTriggers.VOID_FOUNTAIN_CREATE.get().createCriterion(new TriggerInstance(Optional.empty()));
         }
 
         public boolean matches() {

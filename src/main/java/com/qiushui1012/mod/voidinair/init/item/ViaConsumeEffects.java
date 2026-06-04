@@ -9,7 +9,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class VIAConsumeEffects {
+public class ViaConsumeEffects {
     public static final DeferredRegister<ConsumeEffect.Type<?>> REGISTER = DeferredRegister.create(
         Registries.CONSUME_EFFECT_TYPE,
         AncVoidInAir.MOD_ID

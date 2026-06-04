@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.math.Axis;
 import com.mojang.math.Transformation;
-import com.qiushui1012.mod.voidinair.init.block.VIABlocks;
+import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.blockentity.WallAndGroundTransformations;
 import net.minecraft.client.renderer.blockentity.state.SkullBlockRenderState;
@@ -61,9 +61,9 @@ public class SkullBlockRendererMixin {
         @Local(name = "blockState") BlockState blockState
     ) {
         original.call(instance, value);
-        if (blockState.is(VIABlocks.BLACK_CAT_HEAD)) {
+        if (blockState.is(ViaBlocks.BLACK_CAT_HEAD)) {
             original.call(instance, BLACK_CAT_TRANSFORMATIONS.freeTransformations(blockState.getValue(SkullBlock.ROTATION)));
-        } else if (blockState.is(VIABlocks.BLACK_CAT_WALL_HEAD)) {
+        } else if (blockState.is(ViaBlocks.BLACK_CAT_WALL_HEAD)) {
             original.call(instance, BLACK_CAT_TRANSFORMATIONS.wallTransformation(blockState.getValue(WallSkullBlock.FACING)));
         }
     }

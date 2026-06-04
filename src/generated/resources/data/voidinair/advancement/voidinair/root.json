@@ -6,7 +6,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "anvilcraft:textures/gui/misc/background/advancement.png",
+    "background": "anvilcraft:gui/misc/background/advancement",
     "description": {
       "translate": "advancements.voidinair.root.description"
     },
