@@ -11,7 +11,7 @@
       "translate": "advancements.voidinair.root.description"
     },
     "icon": {
-      "id": "minecraft:cat_spawn_egg"
+      "id": "voidinair:black_cat"
     },
     "show_toast": false,
     "title": {

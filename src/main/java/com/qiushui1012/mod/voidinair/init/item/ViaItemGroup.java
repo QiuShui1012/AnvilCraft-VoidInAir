@@ -22,7 +22,7 @@ public class ViaItemGroup {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> INSTANCE = REGISTER.register(
         "tab",
         () -> CreativeModeTab.builder()
-            .icon(ViaBlocks.BLACK_CAT_HEAD::asStack)
+            .icon(ViaBlocks.BLACK_CAT::asStack)
             .displayItems(LambdaUtil::noop)
             .title(REGISTRUM.addLang("itemGroup", AncVoidInAir.of("tab"), "AnvilCraft: Void in Air"))
             .withTabsBefore(ModItemGroups.ANVILCRAFT_BUILD_BLOCK.getId())

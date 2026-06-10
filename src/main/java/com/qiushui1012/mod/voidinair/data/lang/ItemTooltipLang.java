@@ -10,6 +10,7 @@ public class ItemTooltipLang {
      * @param provider 提供器
      */
     public static void init(RegistrumLangProvider provider) {
-        ItemTooltipManager.NEED_TOOLTIP_ITEM.forEach((item, s) -> provider.add(ItemTooltipManager.getTranslationKey(item), s));
+        ItemTooltipManager.getNormalMap().forEach((item, s) -> provider.add(ItemTooltipManager.getTranslationKey(item), s));
+        ItemTooltipManager.getShiftMap().forEach((item, s) -> provider.add(ItemTooltipManager.getShiftTranslationKey(item), s));
     }
 }
