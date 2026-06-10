@@ -26,8 +26,8 @@ public class ItemTooltipManager {
     // 禁用行长度检查"""
     static {
         NORMAL.put(ViaBlocks.BLACK_CAT.asItem(), "Cute little black cat. §8§mThe Void§r");
-        NORMAL.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void.");
-        NORMAL.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of Void.");
+        NORMAL.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void");
+        NORMAL.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of Void");
         NORMAL.put(ViaBlocks.VOID_FOUNTAIN.asItem(), "Similar to Mineral Fountain, but can only produce the result of Void Decay");
         NORMAL.put(ViaItems.SNOWFLAKE_AMULET.asItem(), "Grants immunity of freeze and lets you to walk on the powder snow");
         NORMAL.put(ViaItems.BEEHIVE_AMULET.asItem(), "Grants immunity of bees and lets you to safely collect honeycombs and honey");
@@ -35,8 +35,8 @@ public class ItemTooltipManager {
         NORMAL.put(ViaItems.DOLPHIN_AMULET.asItem(), "Gives you Dolphin Grace III and making it less likely for the Guardians to notice");
         NORMAL.put(ViaItems.TRANSCENDED_AMULET.asItem(), "Includes all AnvilCraft's and Void in Air's amulet effects (except Abnormal Amulet)");
 
-        SHIFT.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void. \nWhen trigger, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
-        SHIFT.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of Void.\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
+        SHIFT.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void.nWhen trigger, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
+        SHIFT.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of Void\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
         SHIFT.put(ViaBlocks.VOID_FOUNTAIN.asItem(), "Similar to Mineral Fountain, but can only produce the result of Void Decay\nTrying to generate blocks like Mineral Fountain can lead to some unusual things...");
     }
     // 启用行长度检查""";
