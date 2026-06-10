@@ -1,6 +1,8 @@
 # 铁砧工艺：天猫行空 | [AnvilCraft: Void in Air](./README_en.md)
 
 [![Development Builds](https://github.com/QiuShui1012/AnvilCraft-VoidinAir/actions/workflows/ci.yml/badge.svg)](https://github.com/Anvil-Dev/AnvilCraft/actions/workflows/ci.yml)
+[![CurseForge downloads](http://cf.way2muchnoise.eu/full_1552581_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/anvilcraft-via)
+[![Modrinth downloads](https://img.shields.io/modrinth/dt/anvilcraft-via?color=00AF5C&label=Modrinth%20downloads&logo=modrinth)](https://modrinth.com/mod/anvilcraft-via)
 [![GitHub downloads](https://img.shields.io/github/downloads/QiuShui1012/AnvilCraft-VoidinAir/total?label=Github%20downloads&logo=github)](https://github.com/Anvil-Dev/AnvilCraft/releases)
 
 ## 使用许可
