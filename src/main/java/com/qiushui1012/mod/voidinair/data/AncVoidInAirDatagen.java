@@ -7,7 +7,7 @@ import com.qiushui1012.mod.voidinair.data.tag.ViaTagHandler;
 import com.qiushui1012.mod.voidinair.init.item.ViaAmuletDefinitions;
 import dev.anvilcraft.lib.v2.registrum.providers.DataProviderInitializer;
 import dev.anvilcraft.lib.v2.registrum.providers.ProviderType;
-import dev.dubhe.anvilcraft.init.ModRegistries;
+import dev.dubhe.anvilcraft.init.registry.ModRegistryKeys;
 
 // CHECKSTYLE.SUPPRESS: AvoidStaticImport for +1 lines
 import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
@@ -18,7 +18,7 @@ public class AncVoidInAirDatagen {
      */
     public static void init() {
         DataProviderInitializer genInit = REGISTRUM.getDataGenInitializer();
-        genInit.add(ModRegistries.AMULET_DEF, ViaAmuletDefinitions::bootstrap);
+        genInit.add(ModRegistryKeys.AMULET_DEF, ViaAmuletDefinitions::bootstrap);
 
         REGISTRUM.addDataGenerator(ProviderType.ADVANCEMENT, ViaAdvancementsHandler::init);
         REGISTRUM.addDataGenerator(ProviderType.RECIPE, ViaRecipeHandler::init);

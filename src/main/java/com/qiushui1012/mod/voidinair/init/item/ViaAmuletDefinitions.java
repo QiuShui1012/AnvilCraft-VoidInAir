@@ -5,7 +5,7 @@ import com.qiushui1012.mod.voidinair.init.entity.ViaDamageTypeTags;
 import com.qiushui1012.mod.voidinair.init.entity.ViaEntityTypeTags;
 import dev.dubhe.anvilcraft.api.amulet.def.AmuletDefinition;
 import dev.dubhe.anvilcraft.api.amulet.def.IAmuletDefinition;
-import dev.dubhe.anvilcraft.init.ModRegistries;
+import dev.dubhe.anvilcraft.init.registry.ModRegistryKeys;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -54,6 +54,6 @@ public class ViaAmuletDefinitions {
     }
 
     private static ResourceKey<IAmuletDefinition> key(String name) {
-        return ResourceKey.create(ModRegistries.AMULET_DEF, AncVoidInAir.of(name));
+        return ResourceKey.create(ModRegistryKeys.AMULET_DEF, AncVoidInAir.of(name));
     }
 }
