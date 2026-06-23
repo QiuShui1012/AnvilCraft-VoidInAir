@@ -40,5 +40,11 @@
     "tooltip.voidinair.item.void_amulet": "生效时让你无法与虚无世界负距离拥抱♂",
     "tooltip.voidinair.item.void_amulet.shift": "生效时让你无法与虚无世界负距离拥抱♂\n碰到虚无世界后获得足以持续至脚踏实地的慢慢飞状态效果，并将触发者拉到上面的世界最大纵轴值的对应俩横轴坐标",
     "tooltip.voidinair.item.void_fountain": "类似很热的硬♂硬的东西，但只能生产虚无世界腐坏的果子",
-    "tooltip.voidinair.item.transcended_amulet": "包含所有 哐当工艺 和 哐当工艺：哈基米在天上飞 的护肤效果（Exception 护肤除外）"
+    "tooltip.voidinair.item.transcended_amulet": "包含所有 哐当工艺 和 哐当工艺：哈基米在天上飞 的护肤效果（Exception 护肤除外）",
+    "item.voidinair.anvilcraft_amulet": "哐当工艺护肤",
+    "item.voidinair.black_cat_amulet": "虚空护肤",
+    "item.voidinair.pumpkin_amulet": "南瓜护肤",
+    "tooltip.voidinair.item.anvilcraft_amulet": "包含所有哐当工艺的护肤效果（朋友护肤除外）",
+    "tooltip.voidinair.item.black_cat_amulet": "包含所有哐当工艺和哐当工艺：哈基米在天上飞的护肤效果",
+    "tooltip.voidinair.item.pumpkin_amulet": "为你戴上一个虚拟的鬼脸南瓜"
 }
