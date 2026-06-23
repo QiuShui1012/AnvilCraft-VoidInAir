@@ -39,7 +39,7 @@ public class ItemTooltipManager {
 
         SHIFT.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void\nWhen trigger, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
         SHIFT.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of Void\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
-        SHIFT.put(ViaBlocks.VOID_FOUNTAIN.asItem(), "Similar to Mineral Fountain, but can only produce the result of Void Decay\nTrying to generate blocks like Mineral Fountain can lead to some unusual things...");
+        SHIFT.put(ViaBlocks.VOID_FOUNTAIN.asItem(), "Similar to Mineral Fountain, but can only produce the result of Void Decay\nTrying to generate blocks like Mineral Fountain can lead to some unusual things…");
     }
     // 启用行长度检查""";
 
