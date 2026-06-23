@@ -33,7 +33,9 @@ public class ItemTooltipManager {
         NORMAL.put(ViaItems.BEEHIVE_AMULET.asItem(), "Grants immunity of bees and lets you to safely collect honeycombs and honey");
         NORMAL.put(ViaItems.GOLD_AMULET.asItem(), "Clothe you in golden armor in the eyes of the piglin");
         NORMAL.put(ViaItems.DOLPHIN_AMULET.asItem(), "Gives you Dolphin Grace III and making it less likely for the Guardians to notice");
-        NORMAL.put(ViaItems.TRANSCENDED_AMULET.asItem(), "Includes all AnvilCraft's and Void in Air's amulet effects (except Abnormal Amulet)");
+        NORMAL.put(ViaItems.PUMPKIN_AMULET.asItem(), "Put on a virtual Carved Pumpkin for you");
+        NORMAL.put(ViaItems.ANVILCRAFT_AMULET.asItem(), "Includes all AnvilCraft's amulet effects (except Comrade Amulet)");
+        NORMAL.put(ViaItems.BLACK_CAT_AMULET.asItem(), "Includes all AnvilCraft's and Void in Air's amulet effects");
 
         SHIFT.put(ViaItems.TOTEM_OF_VOID.asItem(), "Triggers when falling into the Void\nWhen trigger, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");
         SHIFT.put(ViaItems.VOID_AMULET.asItem(), "Grants immunity of Void\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld");

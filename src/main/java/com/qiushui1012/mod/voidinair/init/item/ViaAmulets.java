@@ -2,6 +2,7 @@ package com.qiushui1012.mod.voidinair.init.item;
 
 import com.qiushui1012.mod.voidinair.init.entity.ViaDamageTypeTags;
 import com.qiushui1012.mod.voidinair.init.entity.ViaEntityTypeTags;
+import com.qiushui1012.mod.voidinair.item.property.amulet.BlackCatAmulet;
 import dev.dubhe.anvilcraft.init.item.ModAmulets;
 import dev.dubhe.anvilcraft.item.property.component.amulet.DoNothingAmulet;
 import dev.dubhe.anvilcraft.item.property.component.amulet.GiveEffectAmulet;
@@ -27,14 +28,12 @@ public class ViaAmulets {
         new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 3, 0, false, false),
         MinMaxBounds.Ints.atMost(3600)
     );
-    public static final WrappedOthersAmulet TRANSCENDED = WrappedOthersAmulet.of(
-        ViaAmulets.VOID,
-        ViaAmulets.SNOWFLAKE,
-        ViaAmulets.BEEHIVE,
-        ViaAmulets.GOLD,
-        ViaAmulets.DOLPHIN,
+    public static final DoNothingAmulet PUMPKIN = new DoNothingAmulet();
+    public static final WrappedOthersAmulet ANVILCRAFT = WrappedOthersAmulet.of(
+        ModAmulets.ABNORMAL,
         ModAmulets.ANVIL,
         ModAmulets.GEM,
         ModAmulets.NATURE
     );
+    public static final BlackCatAmulet BLACK_CAT = BlackCatAmulet.empty();
 }

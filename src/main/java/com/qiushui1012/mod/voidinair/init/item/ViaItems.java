@@ -131,10 +131,35 @@ public class ViaItems {
         })
         .register();
 
-    public static final ItemEntry<Item> TRANSCENDED_AMULET = REGISTRUM
-        .item("transcended_amulet", Item::new)
+    public static final ItemEntry<Item> PUMPKIN_AMULET = REGISTRUM
+        .item("pumpkin_amulet", Item::new)
         .properties(properties -> properties
-            .component(ModComponents.AMULET, ViaAmulets.TRANSCENDED)
+            .component(ModComponents.AMULET, ViaAmulets.PUMPKIN)
+        )
+        .model(DataGenUtil::flatItem)
+        .recipe((ctx, provider) -> {
+            JewelCraftingRecipe.builder(provider.getItems())
+                .requires(ModItems.SILVER_INGOT)
+                .requires(Items.PUMPKIN_SEEDS, 16)
+                .requires(Items.CARVED_PUMPKIN, 4)
+                .source(ctx.get())
+                .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
+        })
+        .register();
+
+    public static final ItemEntry<Item> ANVILCRAFT_AMULET = REGISTRUM
+        .item("anvilcraft_amulet", Item::new)
+        .lang("AnvilCraft Amulet")
+        .properties(properties -> properties
+            .component(ModComponents.AMULET, ViaAmulets.ANVILCRAFT)
+        )
+        .model(DataGenUtil::flatItem)
+        .register();
+
+    public static final ItemEntry<Item> BLACK_CAT_AMULET = REGISTRUM
+        .item("black_cat_amulet", Item::new)
+        .properties(properties -> properties
+            .component(ModComponents.AMULET, ViaAmulets.BLACK_CAT)
         )
         .model(DataGenUtil::flatItem)
         .register();

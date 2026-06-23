@@ -18,6 +18,7 @@ public class ViaAmuletDefinitions {
     public static final ResourceKey<IAmuletDefinition> BEEHIVE = ViaAmuletDefinitions.key("beehive");
     public static final ResourceKey<IAmuletDefinition> GOLD = ViaAmuletDefinitions.key("gold");
     public static final ResourceKey<IAmuletDefinition> DOLPHIN = ViaAmuletDefinitions.key("dolphin");
+    public static final ResourceKey<IAmuletDefinition> PUMPKIN = ViaAmuletDefinitions.key("pumpkin");
 
     public static void bootstrap(BootstrapContext<IAmuletDefinition> ctx) {
         HolderGetter<EntityType<?>> entityTypes = ctx.lookup(Registries.ENTITY_TYPE);
@@ -49,6 +50,12 @@ public class ViaAmuletDefinitions {
             ViaAmuletDefinitions.DOLPHIN,
             AmuletDefinition.builder(ViaItems.DOLPHIN_AMULET)
                 .obtain(entityTypes, ViaEntityTypeTags.DOLPHIN_AMULET_VALID)
+                .build()
+        );
+        ctx.register(
+            ViaAmuletDefinitions.PUMPKIN,
+            AmuletDefinition.builder(ViaItems.PUMPKIN_AMULET)
+                .obtain(entityTypes, ViaEntityTypeTags.PUMPKIN_AMULET_VALID)
                 .build()
         );
     }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "voidinair:eight_to_one_smithing/transcended_amulet"
+        "recipe": "voidinair:jewel_crafting/pumpkin_amulet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "voidinair:eight_to_one_smithing/transcended_amulet"
+      "voidinair:jewel_crafting/pumpkin_amulet"
     ]
   }
 }

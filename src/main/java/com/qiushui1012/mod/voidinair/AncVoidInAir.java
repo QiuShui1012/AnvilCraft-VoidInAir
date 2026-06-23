@@ -7,6 +7,7 @@ import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.init.block.ViaCriterionTriggers;
 import com.qiushui1012.mod.voidinair.init.item.ViaAmuletTypes;
 import com.qiushui1012.mod.voidinair.init.item.ViaConsumeEffects;
+import com.qiushui1012.mod.voidinair.init.item.ViaCustomDataComponents;
 import com.qiushui1012.mod.voidinair.init.item.ViaItemGroup;
 import com.qiushui1012.mod.voidinair.init.item.ViaItems;
 import dev.anvilcraft.lib.v2.config.ConfigManager;
@@ -29,6 +30,7 @@ public class AncVoidInAir {
         ViaItems.init();
         ViaAmuletTypes.init(modEventBus);
         ViaConsumeEffects.init(modEventBus);
+        ViaCustomDataComponents.init(modEventBus);
         ViaCriterionTriggers.init(modEventBus);
 
         // datagen

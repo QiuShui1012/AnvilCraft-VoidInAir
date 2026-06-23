@@ -10,6 +10,7 @@ public class ViaEntityTypeTags {
     public static final TagKey<EntityType<?>> BEEHIVE_AMULET_VALID = ViaEntityTypeTags.bind("amulet_valid/beehive");
     public static final TagKey<EntityType<?>> GOLD_AMULET_VALID = ViaEntityTypeTags.bind("amulet_valid/gold");
     public static final TagKey<EntityType<?>> DOLPHIN_AMULET_VALID = ViaEntityTypeTags.bind("amulet_valid/dolphin");
+    public static final TagKey<EntityType<?>> PUMPKIN_AMULET_VALID = ViaEntityTypeTags.bind("amulet_valid/pumpkin");
 
     @SuppressWarnings("unused")
     private static TagKey<EntityType<?>> bindC(String id) {

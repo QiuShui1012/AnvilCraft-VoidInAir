@@ -1,4 +1,4 @@
-package com.qiushui1012.mod.voidinair.item.property.consume.amulet;
+package com.qiushui1012.mod.voidinair.item.property.amulet;
 
 import com.mojang.serialization.MapCodec;
 import com.qiushui1012.mod.voidinair.init.item.ViaAmuletTypes;

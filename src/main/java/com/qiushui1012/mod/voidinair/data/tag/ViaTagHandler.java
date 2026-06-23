@@ -29,6 +29,10 @@ public class ViaTagHandler {
             .addElement(ViaTagHandler.findId(EntityType.DOLPHIN))
             .addElement(ViaTagHandler.findId(EntityType.GUARDIAN))
             .addElement(ViaTagHandler.findId(EntityType.ELDER_GUARDIAN));
+
+        provider.rawBuilder(ViaEntityTypeTags.PUMPKIN_AMULET_VALID)
+            .addElement(ViaTagHandler.findId(EntityType.ENDERMAN))
+            .addElement(ViaTagHandler.findId(EntityType.CREAKING));
     }
 
     public static void damage(RegistrumTagsProvider<DamageType> provider) {

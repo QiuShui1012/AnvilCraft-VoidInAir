@@ -6,6 +6,7 @@
     "GuardianAttackGoalMixin",
     "GuardianAttackSelectorMixin",
     "LivingEntityMixin",
+    "MapItemSavedDataMixin",
     "NearestAttackableTargetGoalMixin",
     "PiglinAiMixin",
     "PowderSnowBlockMixin",

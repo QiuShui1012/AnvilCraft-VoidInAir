@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
@@ -15,7 +16,7 @@ import java.util.function.Consumer;
 @EventBusSubscriber
 public class TooltipEventListener {
     @SuppressWarnings("unused")
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onTooltip(AppendCustomHoverTextEvent event) {
         final ItemStack stack = event.getStack();
         final Item.TooltipContext ctx = event.getContext();
