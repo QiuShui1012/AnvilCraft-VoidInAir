@@ -40,5 +40,11 @@
     "voidinair.configuration.void_fountain_cooldown.tooltip": "太虛之泉眼之俟時（綱：刻）",
     "tooltip.voidinair.item.void_amulet.shift": "效行则免于太虛\n若陷于太虛，得輕之效，足以續至落地，並移發者至主界最高y処之同xz坐標",
     "tooltip.voidinair.item.void_fountain.shift": "宛若礦之泉眼，然獨產太虛之衰之貨\n欲效其式以立方塊，則生奇異……",
-    "tooltip.voidinair.item.totem_of_void.shift": "陷太虛則發\n發後，得輕之效，足以續至落地，並移發者至主界最高y処之同xz坐標"
+    "tooltip.voidinair.item.totem_of_void.shift": "陷太虛則發\n發後，得輕之效，足以續至落地，並移發者至主界最高y処之同xz坐標",
+    "item.voidinair.anvilcraft_amulet": "砧藝符",
+    "item.voidinair.black_cat_amulet": "玄貓符",
+    "item.voidinair.pumpkin_amulet": "南瓜符",
+    "tooltip.voidinair.item.anvilcraft_amulet": "凡鐵砧匠藝所載諸符之效，悉數囊括，惟友符不在此列",
+    "tooltip.voidinair.item.black_cat_amulet": "凡鐵砧匠藝及鐵砧匠藝：天貓行空所載諸符之效，悉數囊括",
+    "tooltip.voidinair.item.pumpkin_amulet": "为汝冠以虛擬之南瓜"
 }
