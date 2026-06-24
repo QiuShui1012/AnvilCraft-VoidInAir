@@ -160,6 +160,7 @@ public class ViaItems {
         .item("black_cat_amulet", Item::new)
         .properties(properties -> properties
             .component(ModComponents.AMULET, ViaAmulets.BLACK_CAT)
+            .component(DataComponents.DEATH_PROTECTION, ViaDeathProtections.VOID_AMULET)
         )
         .model(DataGenUtil::flatItem)
         .register();

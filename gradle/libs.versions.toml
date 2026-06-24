@@ -1,10 +1,10 @@
 [versions]
 minecraft = "26.1.2"
-neoforge = "26.1.2.71"
+neoforge = "26.1.2.76"
 
-anvillib = "2.0.0+snapshot.449"
-anvilcraft = "1.6.0+snapshot.1806"
-jei = "29.6.2.31"
+anvillib = "2.0.0+snapshot.462"
+anvilcraft = "1.6.0+snapshot.1888"
+jei = "29.6.2.38"
 jade = "26.1.1+neoforge"
 
 mdg = "2.0.141"
