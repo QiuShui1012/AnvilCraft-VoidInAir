@@ -9,7 +9,10 @@ import com.qiushui1012.mod.voidinair.block.production.VoidFountainBlock;
 import com.qiushui1012.mod.voidinair.block.utility.redstone.RandomTransmitterBlock;
 import com.qiushui1012.mod.voidinair.block.workstation.BlackCatBlock;
 import com.qiushui1012.mod.voidinair.init.item.ViaItemGroup;
+import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
+import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumItemModelGenerator;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
+import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import dev.dubhe.anvilcraft.AnvilCraft;
 import dev.dubhe.anvilcraft.data.AnvilCraftDatagen;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
@@ -88,6 +91,7 @@ public class ViaBlocks {
         .simpleItem()
         .register();
 
+    @SuppressWarnings("Convert2Lambda")
     public static final BlockEntry<BlackCatHeadBlock> BLACK_CAT_HEAD = REGISTRUM
         .block("black_cat_head", BlackCatHeadBlock::new)
         .properties(properties -> properties
@@ -102,21 +106,27 @@ public class ViaBlocks {
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ctx.get(), skull));
         })
         .item((block, properties) -> new StandingAndWallBlockItem(block, ViaBlocks.BLACK_CAT_WALL_HEAD.get(), Direction.DOWN, properties))
-        .model(() -> (ctx, generator) -> {
-            Identifier itemSkull = ModelLocationUtils.decorateItemModelLocation("template_skull");
-            generator.itemModelOutput.accept(
-                ctx.get().asItem(),
-                ItemModelUtils.specialModel(
-                    itemSkull,
-                    new Transformation(
-                        new Vector3f(0.55F, -0.05F, 0.6F),
-                        new Quaternionf().rotationX((float) Math.PI),
-                        new Vector3f(1.7F, 1.7F, 1.7F),
-                        null
-                    ),
-                    new SkullSpecialRenderer.Unbaked(SimpleSkullBlockType.VOID)
-                )
-            );
+        .model(() -> new NonNullBiConsumer<>() {
+            @Override
+            public void accept(
+                DataGenContext<Item, StandingAndWallBlockItem> ctx,
+                RegistrumItemModelGenerator generator
+            ) {
+                Identifier itemSkull = ModelLocationUtils.decorateItemModelLocation("template_skull");
+                generator.itemModelOutput.accept(
+                    ctx.get().asItem(),
+                    ItemModelUtils.specialModel(
+                        itemSkull,
+                        new Transformation(
+                            new Vector3f(0.55F, -0.05F, 0.6F),
+                            new Quaternionf().rotationX((float) Math.PI),
+                            new Vector3f(1.7F, 1.7F, 1.7F),
+                            null
+                        ),
+                        new SkullSpecialRenderer.Unbaked(SimpleSkullBlockType.VOID)
+                    )
+                );
+            }
         })
         .build()
         .register();
