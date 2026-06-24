@@ -32,6 +32,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -142,6 +143,20 @@ public class ViaBlocks {
         )
         .tag(BlockTags.MINEABLE_WITH_PICKAXE)
         .blockstate(DataGenUtil::noExtraModelOrState)
+        .recipe((ctx, provider) -> {
+            HolderGetter<Item> items = provider.getItems();
+            ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, ctx.get(), 6)
+                .pattern("R")
+                .pattern("I")
+                .pattern("P")
+                .define('R', Items.REDSTONE)
+                .define('I', Items.IRON_INGOT)
+                .define('P', ModItems.PROCESSOR)
+                .unlockedBy(AnvilCraftDatagen.hasItem(Items.REDSTONE), AnvilCraftDatagen.has(items, Items.REDSTONE))
+                .unlockedBy(AnvilCraftDatagen.hasItem(Items.IRON_INGOT), AnvilCraftDatagen.has(items, Items.IRON_INGOT))
+                .unlockedBy(AnvilCraftDatagen.hasItem(ModItems.PROCESSOR), AnvilCraftDatagen.has(items, ModItems.PROCESSOR))
+                .save(provider);
+        })
         .item()
         .model(DataGenUtil::onlyInfo)
         .build()

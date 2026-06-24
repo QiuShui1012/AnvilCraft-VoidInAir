@@ -49,7 +49,7 @@
       },
       "apply": {
         "model": "voidinair:block/random_transmitter",
-        "x": 90
+        "x": 270
       }
     },
     {
@@ -58,7 +58,7 @@
       },
       "apply": {
         "model": "voidinair:block/random_transmitter",
-        "x": 270
+        "x": 90
       }
     },
 
@@ -111,7 +111,7 @@
       },
       "apply": {
         "model": "voidinair:block/random_transmitter_on",
-        "x": 90
+        "x": 270
       }
     },
     {
@@ -120,7 +120,7 @@
       },
       "apply": {
         "model": "voidinair:block/random_transmitter_on",
-        "x": 270
+        "x": 90
       }
     }
   ]

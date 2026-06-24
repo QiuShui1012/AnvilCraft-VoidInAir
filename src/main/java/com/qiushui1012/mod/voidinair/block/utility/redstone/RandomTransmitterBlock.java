@@ -105,7 +105,7 @@ public class RandomTransmitterBlock extends Block {
     ) {
         if (stack.isEmpty()) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 
-        if (!RandomTransmitterBlock.CUBE_BB.contains(hitResult.getLocation())) {
+        if (!RandomTransmitterBlock.CUBE_BB.move(pos).contains(hitResult.getLocation())) {
             return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
 
@@ -255,12 +255,22 @@ public class RandomTransmitterBlock extends Block {
         boolean shouldPowered = level.getBestNeighborSignal(pos) > 0;
         if (state.getValue(RandomTransmitterBlock.POWERED) == shouldPowered) return;
 
+        state = state.setValue(RandomTransmitterBlock.POWERED, shouldPowered);
+        level.setBlock(pos, state, Block.UPDATE_CLIENTS);
+
         for (Direction dir : Direction.values()) {
             EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(dir);
-            level.setBlockAndUpdate(pos, state.setValue(property, state.getValue(property).toInactive()));
+            if (state.getValue(property).isInactive()) continue;
+            state = state.setValue(property, state.getValue(property).toInactive());
+            level.setBlockAndUpdate(pos, state);
             BlockPos front = pos.relative(dir);
             level.neighborChanged(front, this, Orientation.random(level.getRandom()));
             level.updateNeighborsAtExceptFromFacing(front, this, dir.getOpposite(), Orientation.random(level.getRandom()));
+        }
+
+        level.updateNeighborsAt(pos, this);
+        if (!shouldPowered) {
+            level.scheduleTick(pos, this, 1);
         }
     }
 
@@ -308,8 +318,8 @@ public class RandomTransmitterBlock extends Block {
         return this.shapes = RandomTransmitterBlock.constructShapes(state);
     }
 
-    public static final AABB CUBE_BB = new AABB(0.4375, 0.4375, 0.4375, 0.5625, 0.5625, 0.5625)
-        .inflate(0.01);
+    public static final AABB CUBE_BB = new AABB(0.375, 0.375, 0.375, 0.625, 0.625, 0.625)
+        .inflate(0.001);
     public static final VoxelShape CUBE = Block.cube(4);
     public static final Map<Direction, VoxelShape> TRANSMITTERS = Shapes.rotateAll(Block.boxZ(2, 0, 7));
     private @Nullable Map<BlockState, VoxelShape> shapes;
