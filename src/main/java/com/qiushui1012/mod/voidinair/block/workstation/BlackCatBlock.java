@@ -16,6 +16,7 @@ import net.minecraft.world.entity.animal.feline.CatSoundVariants;
 import net.minecraft.world.entity.animal.feline.CatVariants;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,7 +39,7 @@ public class BlackCatBlock extends NeoforgeBlock {
     }
 
     @Override
-    protected MapCodec<BlackCatBlock> codec() {
+    public MapCodec<AnvilBlock> codec() {
         return NeoforgeBlock.simpleCodec(BlackCatBlock::new);
     }
 
