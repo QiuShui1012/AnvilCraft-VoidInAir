@@ -84,7 +84,7 @@ abstract class LivingEntityMixin {
         @Local(name = "player") Player player
     ) {
         if (AmuletManager.get(player.registryAccess()).hasAmuletInInventory(player, ViaAmulets.PUMPKIN)) {
-            cir.setReturnValue(true);
+            cir.setReturnValue(false);
         }
     }
 }
