@@ -3,9 +3,11 @@ package com.qiushui1012.mod.voidinair.block.utility.redstone;
 import com.google.common.collect.ImmutableMap;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.SignalGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,8 +25,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -103,9 +111,12 @@ public class RandomTransmitterBlock extends Block {
         InteractionHand hand,
         BlockHitResult hitResult
     ) {
-        if (stack.isEmpty()) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        if (stack.isEmpty()) return InteractionResult.TRY_WITH_EMPTY_HAND;
 
         if (!RandomTransmitterBlock.CUBE_BB.move(pos).contains(hitResult.getLocation())) {
+            if (stack.is(ModItemTags.ANVIL_HAMMER) && player.isShiftKeyDown()) {
+                return this.tryRemoveTransmitter(state, level, pos, player, hitResult);
+            }
             return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
 
@@ -115,7 +126,12 @@ public class RandomTransmitterBlock extends Block {
             if (state.getValue(property).hasTransmitter()) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 
             if (level.isClientSide()) return InteractionResult.SUCCESS;
-            level.setBlockAndUpdate(pos, state.setValue(property, Mode.fromActive(level.getBestNeighborSignal(pos) > 0)));
+            level.setBlockAndUpdate(
+                pos,
+                state.setValue(property, Mode.fromActive(state.getValue(property).isActive()))
+            );
+            level.playSound(null, pos, state.getSoundType(level, pos, null).getPlaceSound(), SoundSource.BLOCKS);
+            if (!player.hasInfiniteMaterials()) stack.shrink(1);
             return InteractionResult.SUCCESS_SERVER;
         } else if (stack.is(ModItemTags.ANVIL_HAMMER)) {
             InteractionResult result = this.tryMoveTransmitters(state, level, pos, hitResult);
@@ -123,6 +139,42 @@ public class RandomTransmitterBlock extends Block {
         }
 
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    private InteractionResult tryRemoveTransmitter(
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        BlockHitResult hitResult
+    ) {
+        Vec3 hitLoc = hitResult.getLocation();
+        Direction side = null;
+        for (Direction dir : Direction.values()) {
+            if (!RandomTransmitterBlock.TRANSMITTER_BBS.get(dir).move(pos).contains(hitLoc)) continue;
+            side = dir;
+            break;
+        }
+        if (side == null) return InteractionResult.FAIL;
+
+        EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(side);
+        if (!state.getValue(property).hasTransmitter()) return InteractionResult.FAIL;
+
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
+        boolean someRemain = false;
+        for (Direction dir : Direction.values()) {
+            if (dir == side) continue;
+            if (!state.getValue(RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(dir)).hasTransmitter()) continue;
+            someRemain = true;
+            break;
+        }
+        if (someRemain) {
+            level.setBlockAndUpdate(pos, state.setValue(property, Mode.NONE));
+        } else {
+            level.removeBlock(pos, false);
+        }
+        if (!player.hasInfiniteMaterials()) player.getInventory().placeItemBackInInventory(ViaBlocks.RANDOM_TRANSMITTER.asStack());
+        return InteractionResult.SUCCESS_SERVER;
     }
 
     private @Nullable InteractionResult tryMoveTransmitters(
@@ -141,14 +193,19 @@ public class RandomTransmitterBlock extends Block {
             if (state.getValue(oppositeProperty).hasTransmitter()) return null;
 
             if (level.isClientSide()) return InteractionResult.SUCCESS;
-            level.setBlockAndUpdate(pos, state.setValue(oppositeProperty, Mode.fromActive(level.getBestNeighborSignal(pos) > 0)));
+            level.setBlockAndUpdate(
+                pos,
+                state
+                    .setValue(property, Mode.NONE)
+                    .setValue(oppositeProperty, Mode.fromActive(state.getValue(property).isActive()))
+            );
             return InteractionResult.SUCCESS_SERVER;
         }
 
         // 若点击侧没有发信器
 
         // 尝试从点击侧的对侧移动发信器到点击侧
-        InteractionResult result = moveTransmitterToAnotherSide(state, level, pos, face.getOpposite(), property);
+        InteractionResult result = this.moveTransmitterToAnotherSide(state, level, pos, face.getOpposite(), property);
         if (result != null) return result;
 
         // 尝试从另外四侧移动发信器到点击侧
@@ -165,7 +222,7 @@ public class RandomTransmitterBlock extends Block {
                 side = Direction.get(second, axis);
             }
 
-            result = moveTransmitterToAnotherSide(state, level, pos, side, property);
+            result = this.moveTransmitterToAnotherSide(state, level, pos, side, property);
             if (result != null) return result;
         }
         for (Direction.Axis axis : new Direction.Axis[] {Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X}) {
@@ -179,14 +236,14 @@ public class RandomTransmitterBlock extends Block {
                 side = Direction.get(second.opposite(), axis);
             }
 
-            result = moveTransmitterToAnotherSide(state, level, pos, side, property);
+            result = this.moveTransmitterToAnotherSide(state, level, pos, side, property);
             if (result != null) return result;
         }
 
         return null;
     }
 
-    private static @Nullable InteractionResult moveTransmitterToAnotherSide(
+    private @Nullable InteractionResult moveTransmitterToAnotherSide(
         BlockState state,
         Level level,
         BlockPos pos,
@@ -199,12 +256,17 @@ public class RandomTransmitterBlock extends Block {
             level.setBlockAndUpdate(
                 pos,
                 state
-                    .setValue(target, Mode.fromActive(level.getBestNeighborSignal(pos) > 0))
+                    .setValue(target, Mode.fromActive(state.getValue(source).isActive()))
                     .setValue(source, Mode.NONE)
             );
             return InteractionResult.SUCCESS_SERVER;
         }
         return null;
+    }
+
+    @Override
+    protected boolean isSignalSource(BlockState state) {
+        return true;
     }
 
     @Override
@@ -226,7 +288,9 @@ public class RandomTransmitterBlock extends Block {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        this.checkPowered(level, pos, state);
         if (state.getValue(RandomTransmitterBlock.POWERED)) return;
+
         for (Direction dir : Direction.values()) {
             EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(dir);
             Mode mode = state.getValue(property);
@@ -252,11 +316,15 @@ public class RandomTransmitterBlock extends Block {
         @Nullable Orientation orientation,
         boolean movedByPiston
     ) {
-        boolean shouldPowered = level.getBestNeighborSignal(pos) > 0;
+        this.checkPowered(level, pos, state);
+    }
+
+    private void checkPowered(Level level, BlockPos pos, BlockState state) {
+        boolean shouldPowered = this.hasBeenPowered(level, pos, state);
         if (state.getValue(RandomTransmitterBlock.POWERED) == shouldPowered) return;
 
         state = state.setValue(RandomTransmitterBlock.POWERED, shouldPowered);
-        level.setBlock(pos, state, Block.UPDATE_CLIENTS);
+        level.setBlock(pos, state, 2);
 
         for (Direction dir : Direction.values()) {
             EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(dir);
@@ -269,9 +337,33 @@ public class RandomTransmitterBlock extends Block {
         }
 
         level.updateNeighborsAt(pos, this);
-        if (!shouldPowered) {
+        if (!level.getBlockTicks().hasScheduledTick(pos, this)) {
             level.scheduleTick(pos, this, 1);
         }
+    }
+
+    private boolean hasBeenPowered(Level level, BlockPos pos, BlockState state) {
+        for (Direction dir : SignalGetter.DIRECTIONS) {
+            EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(dir);
+            if (state.getValue(property).hasTransmitter()) continue;
+
+            BlockPos side = pos.relative(dir);
+            BlockState sideState = level.getBlockState(side);
+            if (sideState.getSignal(level, side, dir) > 0) return true;
+            if (sideState.shouldCheckWeakPower(level, side, dir) && level.getDirectSignal(side, dir) > 0) return true;
+        }
+        return false;
+    }
+
+    public static LootItemConditionalFunction.Builder<?> side(EnumProperty<Mode> property, RandomTransmitterBlock block) {
+        return SetItemCountFunction.setCount(ConstantValue.exactly(-1.0f), true)
+            .when(
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                    .setProperties(
+                        StatePropertiesPredicate.Builder.properties()
+                            .hasProperty(property, "none")
+                    )
+            );
     }
 
     public enum Mode implements StringRepresentable {
@@ -321,6 +413,20 @@ public class RandomTransmitterBlock extends Block {
     public static final AABB CUBE_BB = new AABB(0.375, 0.375, 0.375, 0.625, 0.625, 0.625)
         .inflate(0.001);
     public static final VoxelShape CUBE = Block.cube(4);
+    public static final Map<Direction, AABB> TRANSMITTER_BBS = ImmutableMap.of(
+        Direction.NORTH,
+        new AABB(0.4375, 0.4375, 0.0, 0.5625, 0.5625, 0.4375).inflate(0.001),
+        Direction.SOUTH,
+        new AABB(0.4375, 0.4375, 0.5625, 0.5625, 0.5625, 1.0).inflate(0.001),
+        Direction.WEST,
+        new AABB(0.0, 0.4375, 0.4375, 0.4375, 0.5625, 0.5625).inflate(0.001),
+        Direction.EAST,
+        new AABB(0.5625, 0.4375, 0.4375, 1.0, 0.5625, 0.5625).inflate(0.001),
+        Direction.DOWN,
+        new AABB(0.4375, 0.0, 0.4375, 0.5625, 0.4375, 0.5625).inflate(0.001),
+        Direction.UP,
+        new AABB(0.4375, 0.5625, 0.4375, 0.5625, 1.0, 0.5625).inflate(0.001)
+    );
     public static final Map<Direction, VoxelShape> TRANSMITTERS = Shapes.rotateAll(Block.boxZ(2, 0, 7));
     private @Nullable Map<BlockState, VoxelShape> shapes;
 

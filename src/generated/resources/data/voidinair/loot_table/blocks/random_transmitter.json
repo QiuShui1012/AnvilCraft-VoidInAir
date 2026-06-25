@@ -11,7 +11,100 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 6.0,
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "voidinair:random_transmitter"
+        }
+      ],
+      "functions": [
+        {
+          "add": true,
+          "conditions": [
+            {
+              "block": "voidinair:random_transmitter",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "north": "none"
+              }
+            }
+          ],
+          "count": -1.0,
+          "function": "minecraft:set_count"
+        },
+        {
+          "add": true,
+          "conditions": [
+            {
+              "block": "voidinair:random_transmitter",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "south": "none"
+              }
+            }
+          ],
+          "count": -1.0,
+          "function": "minecraft:set_count"
+        },
+        {
+          "add": true,
+          "conditions": [
+            {
+              "block": "voidinair:random_transmitter",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "east": "none"
+              }
+            }
+          ],
+          "count": -1.0,
+          "function": "minecraft:set_count"
+        },
+        {
+          "add": true,
+          "conditions": [
+            {
+              "block": "voidinair:random_transmitter",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "west": "none"
+              }
+            }
+          ],
+          "count": -1.0,
+          "function": "minecraft:set_count"
+        },
+        {
+          "add": true,
+          "conditions": [
+            {
+              "block": "voidinair:random_transmitter",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "up": "none"
+              }
+            }
+          ],
+          "count": -1.0,
+          "function": "minecraft:set_count"
+        },
+        {
+          "add": true,
+          "conditions": [
+            {
+              "block": "voidinair:random_transmitter",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "down": "none"
+              }
+            }
+          ],
+          "count": -1.0,
+          "function": "minecraft:set_count"
         }
       ],
       "rolls": 1.0

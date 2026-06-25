@@ -40,6 +40,12 @@ import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -89,6 +95,49 @@ public class ViaBlocks {
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(model)));
         })
         .simpleItem()
+        .register();
+
+    public static final BlockEntry<RandomTransmitterBlock> RANDOM_TRANSMITTER = REGISTRUM
+        .block("random_transmitter", RandomTransmitterBlock::new)
+        .properties(properties -> properties
+            .pushReaction(PushReaction.DESTROY)
+            .mapColor(MapColor.COLOR_RED)
+            .requiresCorrectToolForDrops()
+        )
+        .tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        .loot((tables, block) -> tables.add(
+            block,
+            LootTable.lootTable()
+                .withPool(
+                    LootPool.lootPool()
+                        .when(ExplosionCondition.survivesExplosion())
+                        .add(LootItem.lootTableItem(block.asItem()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(6.0F))))
+                        .apply(RandomTransmitterBlock.side(RandomTransmitterBlock.NORTH, block))
+                        .apply(RandomTransmitterBlock.side(RandomTransmitterBlock.SOUTH, block))
+                        .apply(RandomTransmitterBlock.side(RandomTransmitterBlock.EAST, block))
+                        .apply(RandomTransmitterBlock.side(RandomTransmitterBlock.WEST, block))
+                        .apply(RandomTransmitterBlock.side(RandomTransmitterBlock.UP, block))
+                        .apply(RandomTransmitterBlock.side(RandomTransmitterBlock.DOWN, block))
+                )
+        ))
+        .blockstate(DataGenUtil::noExtraModelOrState)
+        .recipe((ctx, provider) -> {
+            HolderGetter<Item> items = provider.getItems();
+            ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, ctx.get(), 6)
+                .pattern("R")
+                .pattern("I")
+                .pattern("P")
+                .define('R', Items.REDSTONE)
+                .define('I', Items.IRON_INGOT)
+                .define('P', ModItems.PROCESSOR)
+                .unlockedBy(AnvilCraftDatagen.hasItem(Items.REDSTONE), AnvilCraftDatagen.has(items, Items.REDSTONE))
+                .unlockedBy(AnvilCraftDatagen.hasItem(Items.IRON_INGOT), AnvilCraftDatagen.has(items, Items.IRON_INGOT))
+                .unlockedBy(AnvilCraftDatagen.hasItem(ModItems.PROCESSOR), AnvilCraftDatagen.has(items, ModItems.PROCESSOR))
+                .save(provider);
+        })
+        .item()
+        .model(DataGenUtil::onlyInfo)
+        .build()
         .register();
 
     @SuppressWarnings("Convert2Lambda")
@@ -143,33 +192,6 @@ public class ViaBlocks {
             MultiVariant skull = BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ctx.get(), skull));
         })
-        .register();
-    public static final BlockEntry<RandomTransmitterBlock> RANDOM_TRANSMITTER = REGISTRUM
-        .block("random_transmitter", RandomTransmitterBlock::new)
-        .properties(properties -> properties
-            .pushReaction(PushReaction.DESTROY)
-            .mapColor(MapColor.COLOR_RED)
-            .requiresCorrectToolForDrops()
-        )
-        .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-        .blockstate(DataGenUtil::noExtraModelOrState)
-        .recipe((ctx, provider) -> {
-            HolderGetter<Item> items = provider.getItems();
-            ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, ctx.get(), 6)
-                .pattern("R")
-                .pattern("I")
-                .pattern("P")
-                .define('R', Items.REDSTONE)
-                .define('I', Items.IRON_INGOT)
-                .define('P', ModItems.PROCESSOR)
-                .unlockedBy(AnvilCraftDatagen.hasItem(Items.REDSTONE), AnvilCraftDatagen.has(items, Items.REDSTONE))
-                .unlockedBy(AnvilCraftDatagen.hasItem(Items.IRON_INGOT), AnvilCraftDatagen.has(items, Items.IRON_INGOT))
-                .unlockedBy(AnvilCraftDatagen.hasItem(ModItems.PROCESSOR), AnvilCraftDatagen.has(items, ModItems.PROCESSOR))
-                .save(provider);
-        })
-        .item()
-        .model(DataGenUtil::onlyInfo)
-        .build()
         .register();
 
     public static void init() {

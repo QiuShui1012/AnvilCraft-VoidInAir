@@ -1,8 +1,11 @@
 package com.qiushui1012.mod.voidinair.event;
 
+import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.item.property.amulet.BlackCatAmulet;
 import dev.dubhe.anvilcraft.init.item.ModComponents;
+import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.item.property.component.amulet.IAmulet;
+import net.minecraft.util.TriState;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -30,5 +33,15 @@ public class PlayerEventListener {
         }
         stack.set(ModComponents.AMULET, signed);
         event.setCancellationResult(InteractionResult.SUCCESS_SERVER);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerUse(PlayerInteractEvent.RightClickBlock event) {
+        if (
+            event.getItemStack().is(ModItemTags.ANVIL_HAMMER)
+            && event.getLevel().getBlockState(event.getHitVec().getBlockPos()).is(ViaBlocks.RANDOM_TRANSMITTER)
+        ) {
+            event.setUseBlock(TriState.TRUE);
+        }
     }
 }
