@@ -46,5 +46,8 @@
     "item.voidinair.pumpkin_amulet": "南瓜符",
     "tooltip.voidinair.item.anvilcraft_amulet": "凡鐵砧匠藝所載諸符之效，悉數囊括，惟友符不在此列",
     "tooltip.voidinair.item.black_cat_amulet": "凡鐵砧匠藝及鐵砧匠藝：天貓行空所載諸符之效，悉數囊括",
-    "tooltip.voidinair.item.pumpkin_amulet": "为汝冠以虛擬之南瓜"
+    "tooltip.voidinair.item.pumpkin_amulet": "为汝冠以虛擬之南瓜",
+    "block.voidinair.random_transmitter": "偶發信器",
+    "item.voidinair.random_transmitter": "偶發信器",
+    "tooltip.voidinair.item.random_transmitter": "偶發赤石之搏"
 }
