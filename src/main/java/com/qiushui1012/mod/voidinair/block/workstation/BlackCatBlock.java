@@ -1,13 +1,12 @@
 package com.qiushui1012.mod.voidinair.block.workstation;
 
 import com.mojang.serialization.MapCodec;
-import com.qiushui1012.mod.voidinair.util.SoundUtil;
+import com.qiushui1012.mod.voidinair.init.ViaSoundEvents;
 import dev.dubhe.anvilcraft.block.workstation.NeoforgeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.feline.Cat;
@@ -25,13 +24,13 @@ import net.neoforged.neoforge.common.util.DeferredSoundType;
 
 public class BlackCatBlock extends NeoforgeBlock {
     public static final SoundType SOUND_TYPE = new DeferredSoundType(
-        0.55F,
         1F,
-        () -> SoundUtil.randomCatSet(RandomSource.createThreadLocalInstance(System.currentTimeMillis())).purreowSound().value(),
-        () -> SoundUtil.randomCatSet(RandomSource.createThreadLocalInstance(System.currentTimeMillis())).begForFoodSound().value(),
-        () -> SoundUtil.randomCatSet(RandomSource.createThreadLocalInstance(System.currentTimeMillis())).purrSound().value(),
-        () -> SoundUtil.randomCatSet(RandomSource.createThreadLocalInstance(System.currentTimeMillis())).ambientSound().value(),
-        () -> SoundUtil.randomCatSet(RandomSource.createThreadLocalInstance(System.currentTimeMillis())).eatSound().value()
+        1F,
+        ViaSoundEvents.BLACK_CAT_BREAK,
+        ViaSoundEvents.BLACK_CAT_STEP,
+        ViaSoundEvents.BLACK_CAT_PLACE,
+        ViaSoundEvents.BLACK_CAT_HIT,
+        ViaSoundEvents.BLACK_CAT_FALL
     );
 
     public BlackCatBlock(Properties properties) {

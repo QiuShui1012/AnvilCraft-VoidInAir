@@ -13,6 +13,7 @@
     "TargetingConditionsMixin"
   ],
   "client": [
+    "LevelEventHandlerMixin",
     "SkullBlockRendererMixin"
   ],
   "mixinextras": {

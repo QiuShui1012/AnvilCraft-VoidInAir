@@ -2,6 +2,7 @@ package com.qiushui1012.mod.voidinair;
 
 import com.qiushui1012.mod.voidinair.config.ViaServerConfig;
 import com.qiushui1012.mod.voidinair.data.AncVoidInAirDatagen;
+import com.qiushui1012.mod.voidinair.init.ViaSoundEvents;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlockEntities;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.init.block.ViaCriterionTriggers;
@@ -32,6 +33,7 @@ public class AncVoidInAir {
         ViaConsumeEffects.init(modEventBus);
         ViaCustomDataComponents.init(modEventBus);
         ViaCriterionTriggers.init(modEventBus);
+        ViaSoundEvents.init(modEventBus);
 
         // datagen
         AncVoidInAirDatagen.init();
