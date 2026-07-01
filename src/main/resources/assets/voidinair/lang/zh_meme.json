@@ -46,5 +46,8 @@
     "item.voidinair.pumpkin_amulet": "南瓜护肤",
     "tooltip.voidinair.item.anvilcraft_amulet": "包含所有哐当工艺的护肤效果（朋友护肤除外）",
     "tooltip.voidinair.item.black_cat_amulet": "包含所有哐当工艺和哐当工艺：哈基米在天上飞的护肤效果",
-    "tooltip.voidinair.item.pumpkin_amulet": "为你戴上一个虚拟的鬼脸南瓜"
+    "tooltip.voidinair.item.pumpkin_amulet": "为你戴上一个虚拟的鬼脸南瓜",
+    "block.voidinair.random_transmitter": "电报发生器",
+    "item.voidinair.random_transmitter": "电报发生器",
+    "tooltip.voidinair.item.random_transmitter": "随机发出电报冲击"
 }
