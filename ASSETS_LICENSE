@@ -3,7 +3,11 @@ All rights reserved unless explicitly stated.
 Copyright (c) 2026 AnvilCraft-VoidInAir by QiuShui1012
 
 File: src/main/resources/assets/voidinair/textures/item/void_amulet.png
-Copyright: 2025 CrazyDataVolt
+File: src/main/resources/assets/voidinair/textures/item/beehive_amulet.png
+File: src/main/resources/assets/voidinair/textures/item/pumpkin_amulet.png
+File: src/main/resources/assets/voidinair/textures/item/gold_amulet.png
+File: src/main/resources/assets/voidinair/textures/item/snowflake_amulet.png
+Copyright: 2025-2026 CrazyDataVolt
 
 File: src/main/resources/assets/voidinair/textures/block/black_cat.png
 File: src/main/resources/assets/voidinair/textures/block/black_cat_bottom.png
@@ -11,5 +15,4 @@ File: src/main/resources/assets/voidinair/textures/block/black_cat_bottom_top.pn
 File: src/main/resources/assets/voidinair/textures/block/black_cat_side.png
 File: src/main/resources/assets/voidinair/textures/block/black_cat_top.png
 File: src/main/resources/assets/voidinair/textures/block/black_cat_top_bottom.png
-File: src/main/resources/assets/voidinair/textures/item/snowflake_amulet.png
 Copyright: 2026 XeKr
