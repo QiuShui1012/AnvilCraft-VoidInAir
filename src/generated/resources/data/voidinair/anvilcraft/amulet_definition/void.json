@@ -3,7 +3,7 @@
   "amulet": {
     "id": "voidinair:void_amulet"
   },
-  "obtain": {
+  "obtains": {
     "tags": [
       {
         "expected": true,

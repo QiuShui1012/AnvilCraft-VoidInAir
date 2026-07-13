@@ -3,7 +3,7 @@
   "amulet": {
     "id": "voidinair:pumpkin_amulet"
   },
-  "obtain": {
+  "obtains": {
     "source_entity": {
       "type": "#voidinair:amulet_valid/pumpkin"
     }
