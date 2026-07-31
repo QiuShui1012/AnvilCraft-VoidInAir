@@ -4,6 +4,11 @@ import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvi
 
 public class ViaRecipeHandler {
     public static void init(RegistrumRecipeProvider provider) {
+        CookingRecipeLoader.init(provider);
+        ItemCompressRecipeLoader.init(provider);
         MultipleToOneRecipeLoader.init(provider);
+        SolidLiquidRecipeLoader.init(provider);
+        StampingRecipeLoader.init(provider);
+        VanillaRecipeLoader.init(provider);
     }
 }
