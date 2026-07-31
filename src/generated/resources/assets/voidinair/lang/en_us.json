@@ -53,6 +53,8 @@
   "tooltip.voidinair.item.void_amulet.shift": "Grants immunity of Void\nWhen falling into the Void, grants long enough Slow Falling effect, and teleports to the scaled xz coordinates of the max build height in the Overworld",
   "tooltip.voidinair.item.void_fountain": "Similar to Mineral Fountain, but can only produce the result of Void Decay",
   "tooltip.voidinair.item.void_fountain.shift": "Similar to Mineral Fountain, but can only produce the result of Void Decay\nTrying to generate blocks like Mineral Fountain can lead to some unusual things…",
+  "voidinair.configuration.auto_crafter_cooldown": "Auto Crafter Cooldown",
+  "voidinair.configuration.auto_crafter_cooldown.tooltip": "Maximum cooldown time of Auto Crafter (in ticks)",
   "voidinair.configuration.section.voidinair.server.toml": "AnvilCraft: Void in Air Server Configuration",
   "voidinair.configuration.section.voidinair.server.toml.title": "AnvilCraft: Void in Air Server Configuration",
   "voidinair.configuration.title": "AnvilCraft: Void in Air Configuration",

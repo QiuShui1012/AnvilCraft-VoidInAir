@@ -1,10 +1,10 @@
 package com.qiushui1012.mod.voidinair.block.entity;
 
+import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import com.qiushui1012.mod.voidinair.init.ViaMenuTypes;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.inventory.AutoCrafterMenu;
 import com.qiushui1012.mod.voidinair.network.AutoCrafterSelectPacket;
-import dev.dubhe.anvilcraft.AnvilCraft;
 import dev.dubhe.anvilcraft.api.itemhandler.PollableFilteredItemStackHandler;
 import dev.dubhe.anvilcraft.block.entity.batch.BaseBatchCraftingBlockEntity;
 import dev.dubhe.anvilcraft.block.power.batch.BaseBatchCraftingBlock;
@@ -115,7 +115,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
     @Override
     protected int getCooldownDuration() {
-        return AnvilCraft.CONFIG.batchCrafterCooldown;
+        return AncVoidInAir.CONFIG.autoCrafterCooldown;
     }
 
     @Override
