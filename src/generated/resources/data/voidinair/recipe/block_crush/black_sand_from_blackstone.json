@@ -1,0 +1,9 @@
+{
+  "type": "anvilcraft:block_crush",
+  "input": {
+    "blocks": "minecraft:blackstone"
+  },
+  "result": {
+    "block": "voidinair:black_sand"
+  }
+}

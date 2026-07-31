@@ -34,6 +34,8 @@ public class ViaItemGroup extends DisplayItemsGenerator {
     public void accept() {
         this.plain(ViaBlocks.BLACK_CAT_HEAD);
         this.plain(ViaBlocks.BLACK_CAT);
+        this.plain(ViaBlocks.DEEPSLATE_CHIPS);
+        this.plain(ViaBlocks.BLACK_SAND);
         this.plain(ViaItems.TOTEM_OF_VOID);
         this.plain(ViaItems.VOID_AMULET);
         this.plain(ViaItems.SNOWFLAKE_AMULET);

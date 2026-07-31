@@ -33,11 +33,14 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ColoredFallingBlock;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -135,6 +138,44 @@ public class ViaBlocks {
         .item()
         .model(DataGenUtil::onlyInfo)
         .build()
+        .register();
+
+    public static final BlockEntry<ColoredFallingBlock> DEEPSLATE_CHIPS = REGISTRUM
+        .block(
+            "deepslate_chips",
+            properties -> new ColoredFallingBlock(new ColorRGBA(0x4F4F55), properties)
+        )
+        .initialProperties(() -> Blocks.GRAVEL)
+        .blockstate(() -> (ctx, generator) -> {
+            ColoredFallingBlock block = ctx.get();
+            Identifier model = generator.withParent(ModelTemplates.CUBE_ALL)
+                .texture(TextureSlot.ALL, AnvilCraft.of("block/deepslate_chips"))
+                .build(block);
+            generator.blockStateOutput.accept(
+                BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(model))
+            );
+        })
+        .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<ColoredFallingBlock> BLACK_SAND = REGISTRUM
+        .block(
+            "black_sand",
+            properties -> new ColoredFallingBlock(new ColorRGBA(0x1D1D1D), properties)
+        )
+        .initialProperties(() -> Blocks.SAND)
+        .blockstate(() -> (ctx, generator) -> {
+            ColoredFallingBlock block = ctx.get();
+            Identifier model = generator.withParent(ModelTemplates.CUBE_ALL)
+                .texture(TextureSlot.ALL, AnvilCraft.of("block/black_sand"))
+                .build(block);
+            generator.blockStateOutput.accept(
+                BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(model))
+            );
+        })
+        .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        .simpleItem()
         .register();
 
     @SuppressWarnings("Convert2Lambda")

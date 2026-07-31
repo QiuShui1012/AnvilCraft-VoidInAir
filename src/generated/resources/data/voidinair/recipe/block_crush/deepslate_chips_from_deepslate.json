@@ -1,0 +1,9 @@
+{
+  "type": "anvilcraft:block_crush",
+  "input": {
+    "blocks": "minecraft:deepslate"
+  },
+  "result": {
+    "block": "voidinair:deepslate_chips"
+  }
+}
