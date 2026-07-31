@@ -5,6 +5,7 @@ import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import com.qiushui1012.mod.voidinair.api.skull.SimpleSkullBlockType;
 import com.qiushui1012.mod.voidinair.block.decoration.BlackCatHeadBlock;
 import com.qiushui1012.mod.voidinair.block.decoration.BlackCatWallHeadBlock;
+import com.qiushui1012.mod.voidinair.block.production.AutoCrafterBlock;
 import com.qiushui1012.mod.voidinair.block.production.VoidFountainBlock;
 import com.qiushui1012.mod.voidinair.block.utility.redstone.RandomTransmitterBlock;
 import com.qiushui1012.mod.voidinair.block.workstation.BlackCatBlock;
@@ -14,6 +15,7 @@ import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumItemModelGe
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import dev.dubhe.anvilcraft.AnvilCraft;
+import dev.dubhe.anvilcraft.block.power.batch.BaseBatchCraftingBlock;
 import dev.dubhe.anvilcraft.data.AnvilCraftDatagen;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItems;
@@ -30,6 +32,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -59,6 +62,26 @@ import java.util.Optional;
 import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
 
 public class ViaBlocks {
+    public static final BlockEntry<AutoCrafterBlock> AUTO_CRAFTER = REGISTRUM
+        .block("auto_crafter", AutoCrafterBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .properties(properties -> properties.noOcclusion().isValidSpawn(Blocks::never))
+        .blockstate(DataGenUtil::noExtraModelOrState)
+        .tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE)
+        .recipe((ctx, provider) -> {
+            HolderGetter<Item> items = provider.getItems();
+            ShapelessRecipeBuilder.shapeless(items, RecipeCategory.TOOLS, ModBlocks.BATCH_CRAFTER.get())
+                .requires(ctx.get())
+                .unlockedBy(AnvilCraftDatagen.hasItem(ctx.get()), AnvilCraftDatagen.has(items, ctx.get()))
+                .save(
+                    provider,
+                    ResourceKey.create(Registries.RECIPE, AncVoidInAir.of("batch_crafter_convert"))
+                );
+        })
+        .simpleItem()
+        .onRegister(block -> BaseBatchCraftingBlock.registerBatchCrafting(() -> block))
+        .register();
+
     public static final BlockEntry<BlackCatBlock> BLACK_CAT = REGISTRUM
         .block("black_cat", BlackCatBlock::new)
         .initialProperties(ModBlocks.NEOFORGE)

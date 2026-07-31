@@ -32,6 +32,7 @@ public class ViaItemGroup extends DisplayItemsGenerator {
 
     @Override
     public void accept() {
+        this.plain(ViaBlocks.AUTO_CRAFTER);
         this.plain(ViaBlocks.BLACK_CAT_HEAD);
         this.plain(ViaBlocks.BLACK_CAT);
         this.plain(ViaBlocks.DEEPSLATE_CHIPS);
