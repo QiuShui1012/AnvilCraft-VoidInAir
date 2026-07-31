@@ -14,6 +14,8 @@ import com.qiushui1012.mod.voidinair.init.item.ViaItems;
 import dev.anvilcraft.lib.v2.config.ConfigManager;
 import dev.anvilcraft.lib.v2.registrum.Registrum;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -22,7 +24,7 @@ import net.neoforged.fml.common.Mod;
 public class AncVoidInAir {
     public static final String MOD_ID = "voidinair";
     public static final ViaServerConfig CONFIG = ConfigManager.register(AncVoidInAir.MOD_ID, ViaServerConfig::new);
-    public static final Registrum REGISTRUM = Registrum.create(AncVoidInAir.MOD_ID);
+    public static final Registrum REGISTRUM = Registrum.create(AncVoidInAir.MOD_ID).defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
 
     public AncVoidInAir(IEventBus modEventBus, ModContainer ignored) {
         ViaItemGroup.init(modEventBus);

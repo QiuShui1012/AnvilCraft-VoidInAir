@@ -8,7 +8,7 @@ import com.qiushui1012.mod.voidinair.block.decoration.BlackCatWallHeadBlock;
 import com.qiushui1012.mod.voidinair.block.production.VoidFountainBlock;
 import com.qiushui1012.mod.voidinair.block.utility.redstone.RandomTransmitterBlock;
 import com.qiushui1012.mod.voidinair.block.workstation.BlackCatBlock;
-import com.qiushui1012.mod.voidinair.init.item.ViaItemGroup;
+import com.qiushui1012.mod.voidinair.init.item.ViaItems;
 import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumItemModelGenerator;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
@@ -37,6 +37,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -55,10 +56,6 @@ import java.util.Optional;
 import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
 
 public class ViaBlocks {
-    static {
-        REGISTRUM.defaultCreativeTab(ViaItemGroup.INSTANCE.getKey());
-    }
-
     public static final BlockEntry<BlackCatBlock> BLACK_CAT = REGISTRUM
         .block("black_cat", BlackCatBlock::new)
         .initialProperties(ModBlocks.NEOFORGE)
@@ -192,6 +189,26 @@ public class ViaBlocks {
             MultiVariant skull = BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ctx.get(), skull));
         })
+        .register();
+
+    public static final BlockEntry<Block> CRIMSON_BOUND_MATTER_BLOCK = REGISTRUM
+        .block("crimson_bound_matter_block", Block::new)
+        .initialProperties(ModBlocks.VOID_MATTER_BLOCK)
+        .blockstate(DataGenUtil::onlyState)
+        .recipe((ctx, provider) -> {
+            HolderGetter<Item> items = provider.getItems();
+            ShapedRecipeBuilder.shaped(items, RecipeCategory.BUILDING_BLOCKS, ctx.get())
+                .pattern("AAA")
+                .pattern("AAA")
+                .pattern("AAA")
+                .define('A', ViaItems.CRIMSON_BOUND_MATTER)
+                .unlockedBy(
+                    AnvilCraftDatagen.hasItem(ViaItems.CRIMSON_BOUND_MATTER),
+                    AnvilCraftDatagen.has(items, ViaItems.CRIMSON_BOUND_MATTER)
+                )
+                .save(provider);
+        })
+        .simpleItem()
         .register();
 
     public static void init() {

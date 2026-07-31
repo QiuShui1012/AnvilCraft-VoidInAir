@@ -1,9 +1,11 @@
 package com.qiushui1012.mod.voidinair.init.item;
 
+import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
 import dev.dubhe.anvilcraft.data.AnvilCraftDatagen;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModComponents;
+import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.JewelCraftingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
@@ -11,6 +13,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -20,10 +23,6 @@ import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
 
 @SuppressWarnings("CodeBlock2Expr")
 public class ViaItems {
-    static {
-        REGISTRUM.defaultCreativeTab(ViaItemGroup.INSTANCE.getKey());
-    }
-
     public static final ItemEntry<Item> TOTEM_OF_VOID = REGISTRUM
         .item("totem_of_void", Item::new)
         .lang("Totem of Void")
@@ -163,6 +162,22 @@ public class ViaItems {
             .component(DataComponents.DEATH_PROTECTION, ViaDeathProtections.VOID_AMULET)
         )
         .model(DataGenUtil::flatItem)
+        .register();
+
+    public static final ItemEntry<Item> CRIMSON_BOUND_MATTER = REGISTRUM
+        .item("crimson_bound_matter", Item::new)
+        .tag(ModItemTags.VOID_RESISTANT)
+        .model(DataGenUtil::flatItem)
+        .recipe((ctx, provider) -> {
+            HolderGetter<Item> items = provider.getItems();
+            ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, ctx.get(), 9)
+                .requires(ViaBlocks.CRIMSON_BOUND_MATTER_BLOCK)
+                .unlockedBy(
+                    AnvilCraftDatagen.hasItem(ViaBlocks.CRIMSON_BOUND_MATTER_BLOCK),
+                    AnvilCraftDatagen.has(items, ViaBlocks.CRIMSON_BOUND_MATTER_BLOCK)
+                )
+                .save(provider);
+        })
         .register();
 
     public static void init() {
