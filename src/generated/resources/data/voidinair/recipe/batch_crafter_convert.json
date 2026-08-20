@@ -2,9 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    "voidinair:auto_crafter"
+    {
+      "item": "voidinair:auto_crafter"
+    }
   ],
   "result": {
+    "count": 1,
     "id": "anvilcraft:batch_crafter"
   }
 }

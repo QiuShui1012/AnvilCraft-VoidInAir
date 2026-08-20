@@ -2,13 +2,14 @@
   "type": "anvilcraft:jewel_crafting",
   "ingredients": [
     {
-      "items": "anvilcraft:silver_ingot"
+      "item": "anvilcraft:silver_ingot"
     },
     {
-      "items": "anvilcraft:void_matter_block"
+      "item": "anvilcraft:void_matter_block"
     }
   ],
-  "source": {
-    "items": "voidinair:void_amulet"
+  "result": {
+    "count": 1,
+    "id": "voidinair:void_amulet"
   }
 }

@@ -39,9 +39,7 @@
       ]
     }
   ],
-  "result": {
-    "id": "voidinair:black_cat_amulet"
-  },
+  "result": "voidinair:black_cat_amulet",
   "template": {
     "items": "anvilcraft:eight_to_one_smithing_template"
   }

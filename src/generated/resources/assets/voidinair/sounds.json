@@ -32,22 +32,22 @@
         "weight": 66
       },
       {
-        "name": "mob/cat/idle1",
+        "name": "mob/cat/stray/idle1",
         "volume": 0.35,
         "weight": 132
       },
       {
-        "name": "mob/cat/idle2",
+        "name": "mob/cat/stray/idle2",
         "volume": 0.35,
         "weight": 132
       },
       {
-        "name": "mob/cat/idle3",
+        "name": "mob/cat/stray/idle3",
         "volume": 0.35,
         "weight": 132
       },
       {
-        "name": "mob/cat/idle4",
+        "name": "mob/cat/stray/idle4",
         "volume": 0.35,
         "weight": 132
       },

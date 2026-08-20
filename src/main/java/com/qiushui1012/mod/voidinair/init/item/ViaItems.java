@@ -4,12 +4,12 @@ import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.util.recipe.BetterShapedRecipeBuilder;
 import com.qiushui1012.mod.voidinair.util.recipe.BetterShapelessRecipeBuilder;
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
-import dev.dubhe.anvilcraft.AnvilCraft;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModComponents;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.JewelCraftingRecipe;
+import dev.dubhe.anvilcraft.util.DataGenUtil;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -155,10 +155,7 @@ public class ViaItems {
     public static final ItemEntry<Item> PULP = REGISTRUM
         .item("pulp", Item::new)
         .tag(ViaItemTags.PULP)
-        .model((ctx, provider) -> provider.generated(
-            ctx::get,
-            AnvilCraft.of(ctx.getId().withPrefix("item/").getPath())
-        ))
+        .model(DataGenUtil::noExtraModelOrState)
         .register();
 
     public static void init() {

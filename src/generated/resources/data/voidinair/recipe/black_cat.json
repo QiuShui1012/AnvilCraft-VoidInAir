@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "B": "anvilcraft:void_matter_block",
-    "M": "anvilcraft:void_matter"
+    "B": {
+      "item": "anvilcraft:void_matter_block"
+    },
+    "M": {
+      "item": "anvilcraft:void_matter"
+    }
   },
   "pattern": [
     "MMM",
@@ -11,6 +15,7 @@
     "BBB"
   ],
   "result": {
+    "count": 1,
     "id": "voidinair:black_cat"
   }
 }

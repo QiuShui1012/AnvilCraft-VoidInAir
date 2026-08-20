@@ -17,9 +17,7 @@
   "material": {
     "items": "anvilcraft:transcendium_block"
   },
-  "result": {
-    "id": "voidinair:anvilcraft_amulet"
-  },
+  "result": "voidinair:anvilcraft_amulet",
   "template": {
     "items": "anvilcraft:four_to_one_smithing_template"
   }

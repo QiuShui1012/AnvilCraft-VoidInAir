@@ -45,16 +45,16 @@ public class ViaSoundProvider extends SoundDefinitionsProvider {
                     SoundDefinitionsProvider.sound("mob/cat/purreow2")
                         .volume(ViaSoundProvider.BLACK_CAT_SOUND_PURREOW_VOLUME)
                         .weight(ViaSoundProvider.BLACK_CAT_SOUND_PURREOW_WEIGHT),
-                    SoundDefinitionsProvider.sound("mob/cat/idle1")
+                    SoundDefinitionsProvider.sound("mob/cat/stray/idle1")
                         .volume(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_VOLUME)
                         .weight(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_WEIGHT),
-                    SoundDefinitionsProvider.sound("mob/cat/idle2")
+                    SoundDefinitionsProvider.sound("mob/cat/stray/idle2")
                         .volume(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_VOLUME)
                         .weight(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_WEIGHT),
-                    SoundDefinitionsProvider.sound("mob/cat/idle3")
+                    SoundDefinitionsProvider.sound("mob/cat/stray/idle3")
                         .volume(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_VOLUME)
                         .weight(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_WEIGHT),
-                    SoundDefinitionsProvider.sound("mob/cat/idle4")
+                    SoundDefinitionsProvider.sound("mob/cat/stray/idle4")
                         .volume(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_VOLUME)
                         .weight(ViaSoundProvider.BLACK_CAT_SOUND_IDLE_WEIGHT),
                     SoundDefinitionsProvider.sound("mob/cat/hiss1")

@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "voidinair:crimson_bound_matter_block"
+    {
+      "item": "voidinair:crimson_bound_matter_block"
+    }
   ],
   "result": {
     "count": 9,

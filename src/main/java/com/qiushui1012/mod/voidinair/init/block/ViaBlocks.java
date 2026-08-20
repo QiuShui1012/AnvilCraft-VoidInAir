@@ -8,16 +8,17 @@ import com.qiushui1012.mod.voidinair.block.production.VoidFountainBlock;
 import com.qiushui1012.mod.voidinair.block.utility.redstone.RandomTransmitterBlock;
 import com.qiushui1012.mod.voidinair.block.workstation.BlackCatBlock;
 import com.qiushui1012.mod.voidinair.init.item.ViaItems;
+import com.qiushui1012.mod.voidinair.util.recipe.BetterShapedRecipeBuilder;
 import com.qiushui1012.mod.voidinair.util.recipe.BetterShapelessRecipeBuilder;
+import dev.anvilcraft.lib.v2.registrum.providers.ProviderType;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
-import dev.dubhe.anvilcraft.AnvilCraft;
+import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import dev.dubhe.anvilcraft.block.batch.BaseBatchCraftingBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.util.DataGenUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ColorRGBA;
@@ -35,12 +36,12 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 import static com.qiushui1012.mod.voidinair.AncVoidInAir.REGISTRUM;
 
-// CHECKSTYLE.SUPPRESS: AvoidStaticImport for +1 lines
-
+@SuppressWarnings("CodeBlock2Expr")
 public class ViaBlocks {
     public static final BlockEntry<AutoCrafterBlock> AUTO_CRAFTER = REGISTRUM
         .block("auto_crafter", AutoCrafterBlock::new)
@@ -66,7 +67,7 @@ public class ViaBlocks {
         .properties(properties -> properties.sound(BlackCatBlock.SOUND_TYPE))
         .blockstate(DataGenUtil::noExtraModelOrState)
         .recipe((ctx, provider) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get())
+            BetterShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get())
                 .pattern("MMM")
                 .pattern(" B ")
                 .pattern("BBB")
@@ -82,12 +83,7 @@ public class ViaBlocks {
         .initialProperties(ModBlocks.MINERAL_FOUNTAIN)
         .blockstate((ctx, provider) -> provider.simpleBlock(
             ctx.get(),
-            provider.models().cubeBottomTop(
-                ctx.getName(),
-                AncVoidInAir.of("block/void_fountain"),
-                AnvilCraft.of("block/sturdy_deepslate"),
-                AncVoidInAir.of("block/void_fountain_top")
-            )
+            new ConfiguredModel(new ModelFile.UncheckedModelFile(ctx.getId().withPrefix("block/")))
         ))
         .simpleItem()
         .register();
@@ -117,7 +113,7 @@ public class ViaBlocks {
         ))
         .blockstate(DataGenUtil::noExtraModelOrState)
         .recipe((ctx, provider) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ctx.get(), 6)
+            BetterShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ctx.get(), 6)
                 .pattern("R")
                 .pattern("I")
                 .pattern("P")
@@ -126,7 +122,9 @@ public class ViaBlocks {
                 .define('P', ModItems.PROCESSOR)
                 .save(provider);
         })
-        .simpleItem()
+        .item()
+        .model(NonNullBiConsumer.noop())
+        .build()
         .register();
 
     public static final BlockEntry<ColoredFallingBlock> DEEPSLATE_CHIPS = REGISTRUM
@@ -137,7 +135,7 @@ public class ViaBlocks {
         .initialProperties(() -> Blocks.GRAVEL)
         .blockstate((ctx, provider) -> provider.simpleBlock(
             ctx.get(),
-            provider.models().cubeAll(ctx.getId().getPath(), AnvilCraft.of("block/deepslate_chips"))
+            new ConfiguredModel(new ModelFile.UncheckedModelFile(ctx.getId().withPrefix("block/")))
         ))
         .tag(BlockTags.MINEABLE_WITH_SHOVEL)
         .simpleItem()
@@ -151,7 +149,7 @@ public class ViaBlocks {
         .initialProperties(() -> Blocks.SAND)
         .blockstate((ctx, provider) -> provider.simpleBlock(
             ctx.get(),
-            provider.models().cubeAll(ctx.getId().getPath(), AnvilCraft.of("block/black_sand"))
+            new ConfiguredModel(new ModelFile.UncheckedModelFile(ctx.getId().withPrefix("block/")))
         ))
         .tag(BlockTags.MINEABLE_WITH_SHOVEL)
         .simpleItem()
@@ -181,6 +179,7 @@ public class ViaBlocks {
         .register();
     public static final BlockEntry<BlackCatWallHeadBlock> BLACK_CAT_WALL_HEAD = REGISTRUM
         .block("black_cat_wall_head", BlackCatWallHeadBlock::new)
+        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
         .properties(properties -> properties
             .lootFrom(ViaBlocks.BLACK_CAT_HEAD)
             .strength(1.0F)
@@ -198,9 +197,12 @@ public class ViaBlocks {
     public static final BlockEntry<Block> CRIMSON_BOUND_MATTER_BLOCK = REGISTRUM
         .block("crimson_bound_matter_block", Block::new)
         .initialProperties(ModBlocks.VOID_MATTER_BLOCK)
-        .blockstate(DataGenUtil::simple)
+        .blockstate((ctx, provider) -> provider.simpleBlock(
+            ctx.get(),
+            new ConfiguredModel(new ModelFile.UncheckedModelFile(ctx.getId().withPrefix("block/")))
+        ))
         .recipe((ctx, provider) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get())
+            BetterShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get())
                 .pattern("AAA")
                 .pattern("AAA")
                 .pattern("AAA")
