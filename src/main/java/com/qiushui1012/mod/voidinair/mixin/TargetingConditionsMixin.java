@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(TargetingConditions.class)
 public class TargetingConditionsMixin {
-    @Definition(id = "d1", local = @Local(type = double.class, name = "d1"))
+    @Definition(id = "d1", local = @Local(type = double.class, ordinal = 1))
     @Expression("d1 * d1")
     @ModifyExpressionValue(method = "test", at = @At("MIXINEXTRAS:EXPRESSION"))
     private double decreaseRangeForDolphinAmulet(
