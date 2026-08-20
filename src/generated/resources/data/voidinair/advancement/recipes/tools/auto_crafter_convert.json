@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_batch_crafter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:batch_crafter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "voidinair:auto_crafter_convert"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_batch_crafter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "voidinair:auto_crafter_convert"
+    ]
+  }
+}
