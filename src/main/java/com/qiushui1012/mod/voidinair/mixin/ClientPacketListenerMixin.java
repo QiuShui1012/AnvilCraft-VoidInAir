@@ -34,7 +34,7 @@ abstract class ClientPacketListenerMixin extends ClientCommonPacketListenerImpl 
             target = "Lnet/minecraft/network/protocol/game/ClientboundEntityEventPacket;getEventId()B"
         )
     )
-    public void handleEntityEvent(ClientboundEntityEventPacket packet, CallbackInfo ci, @Local(name = "entity") Entity entity) {
+    public void handleEntityEvent(ClientboundEntityEventPacket packet, CallbackInfo ci, @Local(ordinal = 0) Entity entity) {
         if (packet.getEventId() == 38) {
             this.minecraft.particleEngine.createTrackingEmitter(entity, ParticleTypes.TOTEM_OF_UNDYING, 30);
             this.level.playLocalSound(
