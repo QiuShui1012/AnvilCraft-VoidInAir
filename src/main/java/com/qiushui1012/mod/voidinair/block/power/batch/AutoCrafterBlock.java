@@ -3,13 +3,12 @@ package com.qiushui1012.mod.voidinair.block.power.batch;
 import com.mojang.serialization.MapCodec;
 import com.qiushui1012.mod.voidinair.block.entity.AutoCrafterBlockEntity;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlockEntities;
-import dev.dubhe.anvilcraft.block.power.batch.BaseBatchCraftingBlock;
+import dev.dubhe.anvilcraft.block.batch.BaseBatchCraftingBlock;
 import dev.dubhe.anvilcraft.network.MachineEnableFilterPacket;
 import dev.dubhe.anvilcraft.network.MachineOutputDirectionPacket;
 import dev.dubhe.anvilcraft.network.SlotDisableChangePacket;
 import dev.dubhe.anvilcraft.network.SlotFilterChangePacket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,7 +25,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.jspecify.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 public class AutoCrafterBlock extends BaseBatchCraftingBlock {
     public AutoCrafterBlock(Properties properties) {
@@ -39,7 +39,7 @@ public class AutoCrafterBlock extends BaseBatchCraftingBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof AutoCrafterBlockEntity autoCrafter) {
             return autoCrafter.getRedstoneSignal();
         }
@@ -88,7 +88,7 @@ public class AutoCrafterBlock extends BaseBatchCraftingBlock {
         return BaseEntityBlock.createTickerHelper(
             type,
             ViaBlockEntities.AUTO_CRAFTER.get(),
-            (tickLevel, pos, _, autoCrafter) -> autoCrafter.tick(tickLevel, pos)
+            (tickLevel, pos, ignored, autoCrafter) -> autoCrafter.tick(tickLevel, pos)
         );
     }
 

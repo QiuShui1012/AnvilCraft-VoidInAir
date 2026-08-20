@@ -3,12 +3,13 @@ package com.qiushui1012.mod.voidinair.data.provider;
 import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import com.qiushui1012.mod.voidinair.init.ViaSoundEvents;
 import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ViaSoundProvider extends SoundDefinitionsProvider {
-    public ViaSoundProvider(PackOutput output) {
-        super(output, AncVoidInAir.MOD_ID);
+    public ViaSoundProvider(PackOutput output, ExistingFileHelper fileHelper) {
+        super(output, AncVoidInAir.MOD_ID, fileHelper);
     }
 
     private static final int BLACK_CAT_SOUND_MEOW_WEIGHT = 33 * 4;

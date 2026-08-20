@@ -1,6 +1,5 @@
 package com.qiushui1012.mod.voidinair.data.advancement;
 
-import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import com.qiushui1012.mod.voidinair.advancement.criterion.VoidFountainCreateTrigger;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.init.item.ViaItems;
@@ -9,7 +8,7 @@ import dev.dubhe.anvilcraft.AnvilCraft;
 import dev.dubhe.anvilcraft.api.advancement.AdvancementLineHelper;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.criterion.ConsumeItemTrigger;
+import net.minecraft.advancements.critereon.ConsumeItemTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +23,7 @@ public class ViaAdvancementsHandler {
         HolderLookup.Provider registries = Objects.requireNonNull(provider.getProvider());
         HolderGetter<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
 
-        AdvancementLineHelper mainLine = new AdvancementLineHelper(AncVoidInAir.MOD_ID);
+        AdvancementLineHelper mainLine = new AdvancementLineHelper();
         AdvancementHolder root = mainLine.next()
             .display(
                 ViaBlocks.BLACK_CAT.asItem(),
@@ -37,7 +36,7 @@ public class ViaAdvancementsHandler {
                 false
             )
             .playerFirstDetected("join")
-            .save(provider, "root");
+            .build("root");
 
         AdvancementLineHelper voidLine = mainLine.createBranch();
         AdvancementHolder voidTotem = voidLine.next()
@@ -52,7 +51,7 @@ public class ViaAdvancementsHandler {
                 false
             )
             .hasItems("has_void_totem", ViaItems.TOTEM_OF_VOID)
-            .save(provider, "void_totem");
+            .build("void_totem");
         AdvancementHolder voidTotemConsumed = voidLine.next()
             .display(
                 ViaItems.TOTEM_OF_VOID,
@@ -64,8 +63,8 @@ public class ViaAdvancementsHandler {
                 true,
                 false
             )
-            .addCriterion("consume_void_totem", ConsumeItemTrigger.TriggerInstance.usedItem(itemLookup, ViaItems.TOTEM_OF_VOID))
-            .save(provider, "void_totem_consumed");
+            .addCriterion("consume_void_totem", ConsumeItemTrigger.TriggerInstance.usedItem(ViaItems.TOTEM_OF_VOID))
+            .build("void_totem_consumed");
         AdvancementHolder voidAmulet = voidLine.next()
             .display(
                 ViaItems.VOID_AMULET,
@@ -78,7 +77,7 @@ public class ViaAdvancementsHandler {
                 false
             )
             .hasItems("has_void_amulet", ViaItems.VOID_AMULET)
-            .save(provider, "void_amulet");
+            .build("void_amulet");
 
         AdvancementLineHelper fountainLine = mainLine.createBranch();
         AdvancementHolder voidPoint = fountainLine.next()
@@ -93,6 +92,6 @@ public class ViaAdvancementsHandler {
                 false
             )
             .addCriterion("create_void_fountain", VoidFountainCreateTrigger.TriggerInstance.create())
-            .save(provider, "void_point");
+            .build("void_point");
     }
 }

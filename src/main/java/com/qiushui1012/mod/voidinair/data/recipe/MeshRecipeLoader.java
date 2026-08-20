@@ -2,7 +2,7 @@ package com.qiushui1012.mod.voidinair.data.recipe;
 
 import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
-import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.MeshRecipe;
 import net.minecraft.world.item.Items;

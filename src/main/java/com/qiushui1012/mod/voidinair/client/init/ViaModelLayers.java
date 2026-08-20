@@ -1,13 +1,15 @@
 package com.qiushui1012.mod.voidinair.client.init;
 
 import com.qiushui1012.mod.voidinair.api.skull.SimpleSkullBlockType;
+import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.resources.Identifier;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -24,10 +26,13 @@ public class ViaModelLayers {
 
     @SubscribeEvent
     public static void on(EntityRenderersEvent.CreateSkullModels event) {
+        SkullBlockRenderer.SKIN_BY_TYPE.put(
+            SimpleSkullBlockType.VOID,
+            ResourceLocation.withDefaultNamespace("textures/entity/cat/cat_all_black.png")
+        );
         event.registerSkullModel(
             SimpleSkullBlockType.VOID,
-            ViaModelLayers.BLACK_CAT_HEAD,
-            Identifier.withDefaultNamespace("textures/entity/cat/cat_all_black.png")
+            new SkullModel(event.getEntityModelSet().bakeLayer(ViaModelLayers.BLACK_CAT_HEAD))
         );
     }
 

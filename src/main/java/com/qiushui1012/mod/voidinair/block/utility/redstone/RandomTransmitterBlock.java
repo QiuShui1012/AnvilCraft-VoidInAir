@@ -2,8 +2,9 @@ package com.qiushui1012.mod.voidinair.block.utility.redstone;
 
 import com.google.common.collect.ImmutableMap;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
+import dev.anvilcraft.lib.v2.util.ShapeUtil;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -11,7 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
@@ -35,10 +35,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.Map;
+import javax.annotation.Nullable;
 
 public class RandomTransmitterBlock extends Block {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -102,7 +102,7 @@ public class RandomTransmitterBlock extends Block {
     }
 
     @Override
-    protected InteractionResult useItemOn(
+    protected ItemInteractionResult useItemOn(
         ItemStack stack,
         BlockState state,
         Level level,
@@ -111,7 +111,7 @@ public class RandomTransmitterBlock extends Block {
         InteractionHand hand,
         BlockHitResult hitResult
     ) {
-        if (stack.isEmpty()) return InteractionResult.TRY_WITH_EMPTY_HAND;
+        if (stack.isEmpty()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         if (!RandomTransmitterBlock.CUBE_BB.move(pos).contains(hitResult.getLocation())) {
             if (stack.is(ModItemTags.ANVIL_HAMMER) && player.isShiftKeyDown()) {
@@ -125,23 +125,23 @@ public class RandomTransmitterBlock extends Block {
             EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(face);
             if (state.getValue(property).hasTransmitter()) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 
-            if (level.isClientSide()) return InteractionResult.SUCCESS;
+            if (level.isClientSide()) return ItemInteractionResult.sidedSuccess(level.isClientSide());
             level.setBlockAndUpdate(
                 pos,
                 state.setValue(property, Mode.fromActive(state.getValue(property).isActive()))
             );
             level.playSound(null, pos, state.getSoundType(level, pos, null).getPlaceSound(), SoundSource.BLOCKS);
             if (!player.hasInfiniteMaterials()) stack.shrink(1);
-            return InteractionResult.SUCCESS_SERVER;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
         } else if (stack.is(ModItemTags.ANVIL_HAMMER)) {
-            InteractionResult result = this.tryMoveTransmitters(state, level, pos, hitResult);
+            ItemInteractionResult result = this.tryMoveTransmitters(state, level, pos, hitResult);
             return result == null ? super.useItemOn(stack, state, level, pos, player, hand, hitResult) : result;
         }
 
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
-    private InteractionResult tryRemoveTransmitter(
+    private ItemInteractionResult tryRemoveTransmitter(
         BlockState state,
         Level level,
         BlockPos pos,
@@ -155,12 +155,12 @@ public class RandomTransmitterBlock extends Block {
             side = dir;
             break;
         }
-        if (side == null) return InteractionResult.FAIL;
+        if (side == null) return ItemInteractionResult.FAIL;
 
         EnumProperty<Mode> property = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(side);
-        if (!state.getValue(property).hasTransmitter()) return InteractionResult.FAIL;
+        if (!state.getValue(property).hasTransmitter()) return ItemInteractionResult.FAIL;
 
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
+        if (level.isClientSide()) return ItemInteractionResult.sidedSuccess(level.isClientSide());
         boolean someRemain = false;
         for (Direction dir : Direction.values()) {
             if (dir == side) continue;
@@ -174,10 +174,10 @@ public class RandomTransmitterBlock extends Block {
             level.removeBlock(pos, false);
         }
         if (!player.hasInfiniteMaterials()) player.getInventory().placeItemBackInInventory(ViaBlocks.RANDOM_TRANSMITTER.asStack());
-        return InteractionResult.SUCCESS_SERVER;
+        return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 
-    private @Nullable InteractionResult tryMoveTransmitters(
+    private @Nullable ItemInteractionResult tryMoveTransmitters(
         BlockState state,
         Level level,
         BlockPos pos,
@@ -192,20 +192,20 @@ public class RandomTransmitterBlock extends Block {
             // 若点击侧的对侧已有发信器则返回
             if (state.getValue(oppositeProperty).hasTransmitter()) return null;
 
-            if (level.isClientSide()) return InteractionResult.SUCCESS;
+            if (level.isClientSide()) return ItemInteractionResult.sidedSuccess(level.isClientSide());
             level.setBlockAndUpdate(
                 pos,
                 state
                     .setValue(property, Mode.NONE)
                     .setValue(oppositeProperty, Mode.fromActive(state.getValue(property).isActive()))
             );
-            return InteractionResult.SUCCESS_SERVER;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
 
         // 若点击侧没有发信器
 
         // 尝试从点击侧的对侧移动发信器到点击侧
-        InteractionResult result = this.moveTransmitterToAnotherSide(state, level, pos, face.getOpposite(), property);
+        ItemInteractionResult result = this.moveTransmitterToAnotherSide(state, level, pos, face.getOpposite(), property);
         if (result != null) return result;
 
         // 尝试从另外四侧移动发信器到点击侧
@@ -217,7 +217,7 @@ public class RandomTransmitterBlock extends Block {
             Direction side;
             if (!first) {
                 first = true;
-                side = axis.getPositive();
+                side = Direction.fromAxisAndDirection(axis, Direction.AxisDirection.POSITIVE);
             } else {
                 side = Direction.get(second, axis);
             }
@@ -231,7 +231,7 @@ public class RandomTransmitterBlock extends Block {
             Direction side;
             if (first) {
                 first = false;
-                side = axis.getNegative();
+                side = Direction.fromAxisAndDirection(axis, Direction.AxisDirection.NEGATIVE);
             } else {
                 side = Direction.get(second.opposite(), axis);
             }
@@ -243,7 +243,7 @@ public class RandomTransmitterBlock extends Block {
         return null;
     }
 
-    private @Nullable InteractionResult moveTransmitterToAnotherSide(
+    private @Nullable ItemInteractionResult moveTransmitterToAnotherSide(
         BlockState state,
         Level level,
         BlockPos pos,
@@ -252,14 +252,14 @@ public class RandomTransmitterBlock extends Block {
     ) {
         EnumProperty<Mode> source = RandomTransmitterBlock.DIRECTION_TO_PROPERTY.get(side);
         if (state.getValue(source).hasTransmitter()) {
-            if (level.isClientSide()) return InteractionResult.SUCCESS;
+            if (level.isClientSide()) return ItemInteractionResult.sidedSuccess(level.isClientSide());
             level.setBlockAndUpdate(
                 pos,
                 state
                     .setValue(target, Mode.fromActive(state.getValue(source).isActive()))
                     .setValue(source, Mode.NONE)
             );
-            return InteractionResult.SUCCESS_SERVER;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
         return null;
     }
@@ -301,19 +301,15 @@ public class RandomTransmitterBlock extends Block {
 
             level.setBlockAndUpdate(pos, state.setValue(property, Mode.fromActive(shouldActive)));
             BlockPos front = pos.relative(dir);
-            level.neighborChanged(front, this, Orientation.random(random));
-            level.updateNeighborsAtExceptFromFacing(front, this, dir.getOpposite(), Orientation.random(random));
+            level.neighborChanged(front, this, pos);
+            level.updateNeighborsAtExceptFromFacing(front, this, dir.getOpposite());
         }
         level.scheduleTick(pos, this, 1);
     }
 
     @Override
     protected void neighborChanged(
-        BlockState state,
-        Level level,
-        BlockPos pos,
-        Block block,
-        @Nullable Orientation orientation,
+        BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos,
         boolean movedByPiston
     ) {
         this.checkPowered(level, pos, state);
@@ -332,8 +328,8 @@ public class RandomTransmitterBlock extends Block {
             state = state.setValue(property, state.getValue(property).toInactive());
             level.setBlockAndUpdate(pos, state);
             BlockPos front = pos.relative(dir);
-            level.neighborChanged(front, this, Orientation.random(level.getRandom()));
-            level.updateNeighborsAtExceptFromFacing(front, this, dir.getOpposite(), Orientation.random(level.getRandom()));
+            level.neighborChanged(front, this, pos);
+            level.updateNeighborsAtExceptFromFacing(front, this, dir.getOpposite());
         }
 
         level.updateNeighborsAt(pos, this);
@@ -412,7 +408,7 @@ public class RandomTransmitterBlock extends Block {
 
     public static final AABB CUBE_BB = new AABB(0.375, 0.375, 0.375, 0.625, 0.625, 0.625)
         .inflate(0.001);
-    public static final VoxelShape CUBE = Block.cube(4);
+    public static final VoxelShape CUBE = Block.box(4, 4, 4, 12, 12, 12);
     public static final Map<Direction, AABB> TRANSMITTER_BBS = ImmutableMap.of(
         Direction.NORTH,
         new AABB(0.4375, 0.4375, 0.0, 0.5625, 0.5625, 0.4375).inflate(0.001),
@@ -427,7 +423,21 @@ public class RandomTransmitterBlock extends Block {
         Direction.UP,
         new AABB(0.4375, 0.5625, 0.4375, 0.5625, 1.0, 0.5625).inflate(0.001)
     );
-    public static final Map<Direction, VoxelShape> TRANSMITTERS = Shapes.rotateAll(Block.boxZ(2, 0, 7));
+    private static final VoxelShape TRANSMITTER_NORTH = Block.box(7, 7, 0, 9, 9, 7);
+    public static final Map<Direction, VoxelShape> TRANSMITTERS = ImmutableMap.of(
+        Direction.NORTH,
+        RandomTransmitterBlock.TRANSMITTER_NORTH,
+        Direction.SOUTH,
+        ShapeUtil.rotate(Direction.Axis.Y, 180, RandomTransmitterBlock.TRANSMITTER_NORTH),
+        Direction.WEST,
+        ShapeUtil.rotate(Direction.Axis.Y, 270, RandomTransmitterBlock.TRANSMITTER_NORTH),
+        Direction.EAST,
+        ShapeUtil.rotate(Direction.Axis.Y, 90, RandomTransmitterBlock.TRANSMITTER_NORTH),
+        Direction.DOWN,
+        ShapeUtil.rotate(Direction.Axis.X, 90, RandomTransmitterBlock.TRANSMITTER_NORTH),
+        Direction.UP,
+        ShapeUtil.rotate(Direction.Axis.X, 270, RandomTransmitterBlock.TRANSMITTER_NORTH)
+    );
     private @Nullable Map<BlockState, VoxelShape> shapes;
 
     public static Map<BlockState, VoxelShape> constructShapes(BlockState defaultState) {

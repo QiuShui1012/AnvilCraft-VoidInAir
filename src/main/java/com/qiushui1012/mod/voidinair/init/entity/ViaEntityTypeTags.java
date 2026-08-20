@@ -2,7 +2,7 @@ package com.qiushui1012.mod.voidinair.init.entity;
 
 import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
@@ -14,7 +14,7 @@ public class ViaEntityTypeTags {
 
     @SuppressWarnings("unused")
     private static TagKey<EntityType<?>> bindC(String id) {
-        return TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("c", id));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("c", id));
     }
 
     private static TagKey<EntityType<?>> bind(String id) {

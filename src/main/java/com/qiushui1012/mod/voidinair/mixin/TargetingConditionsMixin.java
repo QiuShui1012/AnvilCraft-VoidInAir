@@ -15,13 +15,13 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(TargetingConditions.class)
 public class TargetingConditionsMixin {
-    @Definition(id = "visibilityDistance", local = @Local(type = double.class, name = "visibilityDistance"))
-    @Expression("visibilityDistance * visibilityDistance")
+    @Definition(id = "d1", local = @Local(type = double.class, name = "d1"))
+    @Expression("d1 * d1")
     @ModifyExpressionValue(method = "test", at = @At("MIXINEXTRAS:EXPRESSION"))
     private double decreaseRangeForDolphinAmulet(
         double original,
-        @Local(argsOnly = true, name = "targeter") LivingEntity targeter,
-        @Local(argsOnly = true, name = "target") LivingEntity target
+        @Local(argsOnly = true, ordinal = 0) LivingEntity targeter,
+        @Local(argsOnly = true, ordinal = 1) LivingEntity target
     ) {
         if (!(target instanceof Player player)) return original;
         if (!(targeter instanceof Guardian)) return original;

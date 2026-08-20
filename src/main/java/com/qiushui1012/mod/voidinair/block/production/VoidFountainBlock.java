@@ -15,7 +15,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 public class VoidFountainBlock extends BaseEntityBlock {
     public VoidFountainBlock(Properties properties) {
@@ -38,7 +39,7 @@ public class VoidFountainBlock extends BaseEntityBlock {
         return BaseEntityBlock.createTickerHelper(
             type,
             ViaBlockEntities.VOID_FOUNTAIN.get(),
-            (tickLevel, _, _, be) -> be.tick(Util.cast(tickLevel))
+            (tickLevel, ignored, ignored1, be) -> be.tick(Util.cast(tickLevel))
         );
     }
 

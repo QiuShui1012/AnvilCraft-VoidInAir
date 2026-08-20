@@ -1,6 +1,7 @@
 package com.qiushui1012.mod.voidinair.item.property.amulet;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.MapCodec;
 import com.qiushui1012.mod.voidinair.init.item.ViaAmuletTypes;
 import com.qiushui1012.mod.voidinair.init.item.ViaAmulets;
@@ -8,19 +9,16 @@ import com.qiushui1012.mod.voidinair.init.item.ViaItems;
 import dev.anvilcraft.lib.v2.codec.CodecUtil;
 import dev.anvilcraft.lib.v2.util.InventoryUtil;
 import dev.anvilcraft.lib.v2.util.Util;
-import dev.dubhe.anvilcraft.init.item.ModComponents;
 import dev.dubhe.anvilcraft.item.property.component.amulet.ComradeAmulet;
 import dev.dubhe.anvilcraft.item.property.component.amulet.IAmulet;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.UUIDUtil;
-import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -49,7 +47,7 @@ public record BlackCatAmulet(List<UUID> players) implements IAmulet {
     }
 
     public BlackCatAmulet sign(Player player) {
-        UUID id = player.getGameProfile().id();
+        UUID id = player.getGameProfile().getId();
         for (UUID uuid : this.players) {
             if (uuid.equals(id)) {
                 return this;
@@ -80,7 +78,7 @@ public record BlackCatAmulet(List<UUID> players) implements IAmulet {
             .orElse(InventoryUtil.getItemInCompat(player, stack -> stack.is(ViaItems.BLACK_CAT_AMULET)));
         return Optional.ofNullable(source.getEntity())
             .flatMap(entity -> Util.castSafely(entity, Player.class))
-            .map(p -> p.getGameProfile().id())
+            .map(p -> p.getGameProfile().getId())
             .filter(id -> !comrade.isEmpty() && this.players.contains(id))
             .isPresent();
     }
@@ -106,18 +104,16 @@ public record BlackCatAmulet(List<UUID> players) implements IAmulet {
     }
 
     @Override
-    public void addToTooltip(Item.TooltipContext ctx, Consumer<Component> builder, TooltipFlag flag, DataComponentGetter components) {
-        IAmulet amulet = components.get(ModComponents.AMULET);
-        if (!(amulet instanceof BlackCatAmulet(List<UUID> ids))) return;
+    public void addToTooltip(Item.TooltipContext ctx, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         builder.accept(Component.translatable("item.anvilcraft.comrade_amulet.tooltip").withStyle(ChatFormatting.GRAY));
-        for (UUID id : ids) {
+        for (UUID id : this.players) {
             Level level = ctx.level();
             Component entry;
             if (level != null) {
-                Player player = level.getPlayerInAnyDimension(id);
+                Player player = level.getPlayerByUUID(id);
                 if (player == null) {
                     entry = Component.literal(
-                        dev.dubhe.anvilcraft.util.Util.getServices(level).nameToIdCache().get(id).map(NameAndId::name).orElse(id.toString())
+                        dev.dubhe.anvilcraft.util.Util.findProfileCache(level).get(id).map(GameProfile::getName).orElse(id.toString())
                     );
                 } else {
                     entry = player.getDisplayName();

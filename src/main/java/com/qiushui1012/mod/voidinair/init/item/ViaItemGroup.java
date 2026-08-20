@@ -52,7 +52,7 @@ public class ViaItemGroup extends DisplayItemsGenerator {
         this.plain(ViaBlocks.CRIMSON_BOUND_MATTER_BLOCK);
     }
 
-    public static void init(IEventBus modEventBus) {
+    public static void register(IEventBus modEventBus) {
         REGISTER.register(modEventBus);
     }
 }

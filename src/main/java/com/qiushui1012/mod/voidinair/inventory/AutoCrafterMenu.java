@@ -23,10 +23,10 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 public class AutoCrafterMenu extends BaseMachineMenu implements IFilterMenu, ContainerListener {
     private static final int PLAYER_SLOT_COUNT = 36;
@@ -70,7 +70,7 @@ public class AutoCrafterMenu extends BaseMachineMenu implements IFilterMenu, Con
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 int slot = row * 3 + column;
-                this.addSlot(new SlotItemHandlerWithFilter(handler, handler::set, slot, 26 + column * 18, 18 + row * 18));
+                this.addSlot(new SlotItemHandlerWithFilter(handler, slot, 26 + column * 18, 18 + row * 18));
             }
         }
         this.resultSlot = this.addSlot(new ReadOnlySlot(new SimpleContainer(1), 0, 134, 54));
@@ -170,7 +170,7 @@ public class AutoCrafterMenu extends BaseMachineMenu implements IFilterMenu, Con
         this.resultSlot.set(
             this.recipes.get(this.blockEntity.getSelecting())
                 .value()
-                .assemble(this.blockEntity.getDummyCraftingContainer().asCraftInput())
+                .assemble(this.blockEntity.getDummyCraftingContainer().asCraftInput(), this.level.registryAccess())
         );
     }
 

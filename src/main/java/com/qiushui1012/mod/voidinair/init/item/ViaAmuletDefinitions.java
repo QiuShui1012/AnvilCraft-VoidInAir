@@ -6,11 +6,8 @@ import com.qiushui1012.mod.voidinair.init.entity.ViaEntityTypeTags;
 import dev.dubhe.anvilcraft.api.amulet.def.AmuletDefinition;
 import dev.dubhe.anvilcraft.api.amulet.def.IAmuletDefinition;
 import dev.dubhe.anvilcraft.init.registry.ModRegistryKeys;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.EntityType;
 
 public class ViaAmuletDefinitions {
     public static final ResourceKey<IAmuletDefinition> VOID = ViaAmuletDefinitions.key("void");
@@ -21,7 +18,6 @@ public class ViaAmuletDefinitions {
     public static final ResourceKey<IAmuletDefinition> PUMPKIN = ViaAmuletDefinitions.key("pumpkin");
 
     public static void bootstrap(BootstrapContext<IAmuletDefinition> ctx) {
-        HolderGetter<EntityType<?>> entityTypes = ctx.lookup(Registries.ENTITY_TYPE);
         ctx.register(
             ViaAmuletDefinitions.VOID,
             AmuletDefinition.builder(ViaItems.VOID_AMULET)
@@ -37,25 +33,25 @@ public class ViaAmuletDefinitions {
         ctx.register(
             ViaAmuletDefinitions.BEEHIVE,
             AmuletDefinition.builder(ViaItems.BEEHIVE_AMULET)
-                .obtain(entityTypes, ViaEntityTypeTags.BEEHIVE_AMULET_VALID)
+                .obtainEntity(ViaEntityTypeTags.BEEHIVE_AMULET_VALID)
                 .build()
         );
         ctx.register(
             ViaAmuletDefinitions.GOLD,
             AmuletDefinition.builder(ViaItems.GOLD_AMULET)
-                .obtain(entityTypes, ViaEntityTypeTags.GOLD_AMULET_VALID)
+                .obtainEntity(ViaEntityTypeTags.GOLD_AMULET_VALID)
                 .build()
         );
         ctx.register(
             ViaAmuletDefinitions.DOLPHIN,
             AmuletDefinition.builder(ViaItems.DOLPHIN_AMULET)
-                .obtain(entityTypes, ViaEntityTypeTags.DOLPHIN_AMULET_VALID)
+                .obtainEntity(ViaEntityTypeTags.DOLPHIN_AMULET_VALID)
                 .build()
         );
         ctx.register(
             ViaAmuletDefinitions.PUMPKIN,
             AmuletDefinition.builder(ViaItems.PUMPKIN_AMULET)
-                .obtain(entityTypes, ViaEntityTypeTags.PUMPKIN_AMULET_VALID)
+                .obtainEntity(ViaEntityTypeTags.PUMPKIN_AMULET_VALID)
                 .build()
         );
     }

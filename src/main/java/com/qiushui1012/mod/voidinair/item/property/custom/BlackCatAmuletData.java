@@ -14,10 +14,10 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
+import javax.annotation.Nullable;
 
 public class BlackCatAmuletData implements ICustomDataComponent<BlackCatAmulet> {
     public static final BlackCatAmuletData INSTANCE = new BlackCatAmuletData();

@@ -31,7 +31,7 @@ public class GuardianAttackGoalMixin {
         ),
         cancellable = true
     )
-    private void checkRangeForDolphinAmulet(CallbackInfo ci, @Local(name = "target") LivingEntity target) {
+    private void checkRangeForDolphinAmulet(CallbackInfo ci, @Local(name = "livingentity") LivingEntity target) {
         if (!(target instanceof Player player)) return;
         if (!AmuletManager.get(player.registryAccess()).hasAmuletInInventory(player, ViaAmulets.DOLPHIN)) return;
         if (player.distanceTo(this.guardian) >= (this.elder ? 5.0 : 3.0)) {

@@ -6,19 +6,19 @@ import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.inventory.AutoCrafterMenu;
 import com.qiushui1012.mod.voidinair.network.AutoCrafterSelectPacket;
 import dev.dubhe.anvilcraft.api.itemhandler.PollableFilteredItemStackHandler;
+import dev.dubhe.anvilcraft.block.batch.BaseBatchCraftingBlock;
 import dev.dubhe.anvilcraft.block.entity.batch.BaseBatchCraftingBlockEntity;
-import dev.dubhe.anvilcraft.block.power.batch.BaseBatchCraftingBlock;
 import dev.dubhe.anvilcraft.network.UpdateDisplayItemPacket;
-import dev.dubhe.anvilcraft.recipe.sync.RecipesRecord;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedItemContents;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -30,23 +30,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
-import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.annotation.Nullable;
 
 public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
     private static final AtomicInteger COUNTER = new AtomicInteger();
@@ -66,7 +62,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
     protected PollableFilteredItemStackHandler constructHandler() {
         return new PollableFilteredItemStackHandler(9) {
             @Override
-            protected void onContentsChanged(int index, ItemStack previousContents) {
+            protected void onContentsChanged(int slot) {
                 AutoCrafterBlockEntity.this.onContentsChanged();
             }
         };
@@ -91,7 +87,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
                 this.selecting = 0;
                 PacketDistributor.sendToAllPlayers(new AutoCrafterSelectPacket(this.selecting, this.getPos()));
             }
-            displayItem = recipes.get(this.selecting).value().assemble(input);
+            displayItem = recipes.get(this.selecting).value().assemble(input, this.level.registryAccess());
         }
         this.updateDisplayItem(displayItem);
         PacketDistributor.sendToAllPlayers(new UpdateDisplayItemPacket(displayItem, this.getPos()));
@@ -107,7 +103,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
         boolean powered = state.getValue(BaseBatchCraftingBlock.POWERED);
         this.cooldown = Math.max(0, this.cooldown - 1);
-        if (!powered && this.cooldown == 0 && this.craft((ServerLevel) level)) {
+        if (!powered && this.cooldown == 0 && this.craft(level)) {
             this.cooldown = this.getCooldownDuration();
         }
         this.poweredBefore = powered;
@@ -119,8 +115,8 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
     }
 
     @Override
-    public boolean craft(ServerLevel level) {
-        if (this.craftingContainer.isEmpty() || this.cantCraft()) return false;
+    public boolean craft(Level level) {
+        if (this.craftingContainer.isEmpty() || !this.canCraft()) return false;
 
         CraftingInput input = this.craftingContainer.asCraftInput();
         Optional<AutoCrafterCache> cached = this.cache.stream()
@@ -140,15 +136,15 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
         if (this.selecting < 0 || this.selecting >= recipes.size()) this.setSelecting(0);
 
         CraftingRecipe craftingRecipe = recipes.get(this.selecting).value();
-        ItemStack result = craftingRecipe.assemble(input);
+        ItemStack result = craftingRecipe.assemble(input, level.registryAccess());
         if (result.isEmpty()) return false;
         ItemStack displayItem = result.copy();
         this.updateDisplayItem(displayItem);
         PacketDistributor.sendToAllPlayers(new UpdateDisplayItemPacket(displayItem, this.getPos()));
         if (!result.isItemEnabled(level.enabledFeatures())) return false;
 
-        int times = IntStream.range(0, this.handler.size())
-            .mapToObj(index -> ItemUtil.getStack(this.handler, index))
+        int times = IntStream.range(0, this.handler.getSlots())
+            .mapToObj(this.handler::getStackInSlot)
             .filter(stack -> !stack.isEmpty())
             .mapToInt(ItemStack::getCount)
             .min()
@@ -162,13 +158,10 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
             .collect(Collectors.toList());
         if (this.ejectItems(result, remainingItems, this.getDirection())) return false;
 
-        for (int i = 0; i < this.handler.size(); i++) {
-            ItemResource resource = this.handler.getResource(i);
-            if (resource.isEmpty()) continue;
-            try (Transaction transaction = Transaction.openRoot()) {
-                this.handler.extract(i, resource, times, transaction);
-                transaction.commit();
-            }
+        for (int i = 0; i < this.handler.getSlots(); i++) {
+            ItemStack inSlot = this.handler.getStackInSlot(i);
+            if (inSlot.isEmpty()) continue;
+            this.handler.extractItem(i, inSlot.getCount(), false);
         }
         this.setChanged();
         level.updateNeighborsAt(this.getBlockPos(), ViaBlocks.AUTO_CRAFTER.get());
@@ -181,7 +174,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
     private List<RecipeHolder<CraftingRecipe>> getRecipes(CraftingInput input) {
         if (this.level == null) return List.of();
-        return RecipesRecord.getRecipes(this.level).getRecipesFor(RecipeType.CRAFTING, input, this.level).toList();
+        return this.level.getRecipeManager().getRecipesFor(RecipeType.CRAFTING, input, this.level);
     }
 
     public void setSelecting(int selecting) {
@@ -190,7 +183,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
         CraftingInput input = this.dummyCraftingContainer.asCraftInput();
         ItemStack displayItem = recipes.isEmpty()
             ? ItemStack.EMPTY
-            : recipes.get(this.selecting).value().assemble(input);
+            : recipes.get(this.selecting).value().assemble(input, Objects.requireNonNull(this.level).registryAccess());
         this.updateDisplayItem(displayItem);
         this.setChanged();
         if (this.level != null && !this.level.isClientSide()) {
@@ -200,15 +193,15 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput output) {
-        super.saveAdditional(output);
-        output.putInt("Selecting", this.selecting);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.saveAdditional(tag, provider);
+        tag.putInt("Selecting", this.selecting);
     }
 
     @Override
-    protected void loadAdditional(ValueInput input) {
-        super.loadAdditional(input);
-        this.selecting = input.getIntOr("Selecting", 0);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
+        this.selecting = tag.getInt("Selecting");
     }
 
     @Override
@@ -265,7 +258,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
         @Override
         public int getContainerSize() {
-            return AutoCrafterBlockEntity.this.handler.size();
+            return AutoCrafterBlockEntity.this.handler.getSlots();
         }
 
         @Override
@@ -278,32 +271,29 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
         @Override
         public ItemStack getItem(int slot) {
-            return ItemUtil.getStack(AutoCrafterBlockEntity.this.handler, slot);
+            return AutoCrafterBlockEntity.this.handler.getStackInSlot(slot);
         }
 
         @Override
         public ItemStack removeItem(int slot, int amount) {
-            ItemResource resource = AutoCrafterBlockEntity.this.handler.getResource(slot);
-            if (resource.isEmpty()) return ItemStack.EMPTY;
-            try (Transaction transaction = Transaction.openRoot()) {
-                int extracted = AutoCrafterBlockEntity.this.handler.extract(slot, resource, amount, transaction);
-                if (extracted <= 0) return ItemStack.EMPTY;
-                transaction.commit();
-                AutoCrafterBlockEntity.this.setChanged();
-                return resource.toStack(extracted);
-            }
+            ItemStack stack = AutoCrafterBlockEntity.this.handler.getStackInSlot(slot);
+            if (stack.isEmpty()) return ItemStack.EMPTY;
+            int extracted = AutoCrafterBlockEntity.this.handler.extractItem(slot, amount, true).getCount();
+            if (extracted <= 0) return ItemStack.EMPTY;
+            AutoCrafterBlockEntity.this.setChanged();
+            return AutoCrafterBlockEntity.this.handler.extractItem(slot, extracted, false);
         }
 
         @Override
         public ItemStack removeItemNoUpdate(int slot) {
             ItemStack stack = this.getItem(slot);
-            AutoCrafterBlockEntity.this.handler.set(slot, ItemResource.EMPTY, 0);
+            AutoCrafterBlockEntity.this.handler.setStackInSlot(slot, ItemStack.EMPTY);
             return stack;
         }
 
         @Override
         public void setItem(int slot, ItemStack stack) {
-            AutoCrafterBlockEntity.this.handler.set(slot, ItemResource.of(stack), stack.getCount());
+            AutoCrafterBlockEntity.this.handler.setStackInSlot(slot, stack);
         }
 
         @Override
@@ -324,7 +314,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
         }
 
         @Override
-        public void fillStackedContents(StackedItemContents contents) {
+        public void fillStackedContents(StackedContents contents) {
             for (int i = 0; i < this.getContainerSize(); i++) {
                 contents.accountSimpleStack(this.getItem(i));
             }
@@ -354,7 +344,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
         @Override
         public int getContainerSize() {
-            return AutoCrafterBlockEntity.this.handler.size();
+            return AutoCrafterBlockEntity.this.handler.getSlots();
         }
 
         @Override
@@ -367,7 +357,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
 
         @Override
         public ItemStack getItem(int slot) {
-            ItemStack stack = ItemUtil.getStack(AutoCrafterBlockEntity.this.handler, slot);
+            ItemStack stack = AutoCrafterBlockEntity.this.handler.getStackInSlot(slot);
             return stack.isEmpty() ? AutoCrafterBlockEntity.this.handler.getFilter(slot) : stack;
         }
 
@@ -400,7 +390,7 @@ public class AutoCrafterBlockEntity extends BaseBatchCraftingBlockEntity {
         }
 
         @Override
-        public void fillStackedContents(StackedItemContents contents) {
+        public void fillStackedContents(StackedContents contents) {
             for (int i = 0; i < this.getContainerSize(); i++) {
                 contents.accountSimpleStack(this.getItem(i));
             }

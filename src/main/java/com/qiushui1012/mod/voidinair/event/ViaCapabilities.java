@@ -12,9 +12,9 @@ public class ViaCapabilities {
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-            Capabilities.Item.BLOCK,
+            Capabilities.ItemHandler.BLOCK,
             ViaBlockEntities.AUTO_CRAFTER.get(),
-            (autoCrafter, ignoredDirection) -> autoCrafter.getItemHandler()
+            (autoCrafter, ignored) -> autoCrafter.getItemHandler()
         );
     }
 }

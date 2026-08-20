@@ -4,16 +4,17 @@ import com.google.common.collect.Maps;
 import com.qiushui1012.mod.voidinair.init.block.ViaBlocks;
 import com.qiushui1012.mod.voidinair.init.item.ViaItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class ItemTooltipManager {
     public static final Component SHIFT_TIP = Component.translatable(
@@ -48,34 +49,46 @@ public class ItemTooltipManager {
      * 为模组物品添加工具提示
      *
      * @param stack    需要添加工具提示的物品堆叠
-     * @param builder 提示内容
      */
-    public static void addTooltip(ItemStack stack, Consumer<Component> builder, TooltipFlag flag) {
+    public static void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag) {
         Item item = stack.getItem();
+        final int initialTooltipSize = tooltip.size();
         if (ItemTooltipManager.SHIFT.containsKey(item)) {
             if (flag.hasShiftDown()) {
-                builder.accept(ItemTooltipManager.getShiftItemTooltip(item));
+                ItemTooltipManager.addShiftTooltip(tooltip, item);
             } else {
                 if (ItemTooltipManager.NORMAL.containsKey(item)) {
-                    builder.accept(ItemTooltipManager.getItemTooltip(item));
+                    ItemTooltipManager.addNormalTooltip(tooltip, item);
                 }
-                builder.accept(ItemTooltipManager.SHIFT_TIP);
+                int lines = tooltip.size() - initialTooltipSize;
+                tooltip.add(1 + lines, ItemTooltipManager.SHIFT_TIP);
             }
         } else if (ItemTooltipManager.NORMAL.containsKey(item)) {
-            builder.accept(ItemTooltipManager.getItemTooltip(item));
+            ItemTooltipManager.addNormalTooltip(tooltip, item);
         }
     }
 
-    private static Component getItemTooltip(Item item) {
-        return Component.translatable(ItemTooltipManager.getTranslationKey(item)).withStyle(ChatFormatting.GRAY);
+    private static void addNormalTooltip(List<Component> tooltip, Item item) {
+        ItemTooltipManager.addTranslatedTooltip(tooltip, ItemTooltipManager.getTranslationKey(item));
     }
 
-    private static Component getShiftItemTooltip(Item item) {
-        return Component.translatable(ItemTooltipManager.getShiftTranslationKey(item)).withStyle(ChatFormatting.GRAY);
+    private static void addShiftTooltip(List<Component> tooltip, Item item) {
+        ItemTooltipManager.addTranslatedTooltip(tooltip, ItemTooltipManager.getShiftTranslationKey(item));
+    }
+
+    /**
+     * 添加翻译后的tooltip，自动将 \n 拆分为多行
+     */
+    private static void addTranslatedTooltip(List<Component> tooltip, String key) {
+        String text = I18n.get(key);
+        String[] lines = text.split("\n");
+        for (int i = lines.length - 1; i >= 0; i--) {
+            tooltip.add(1, Component.literal(lines[i]).withStyle(ChatFormatting.GRAY));
+        }
     }
 
     public static String getTranslationKey(Item item) {
-        Identifier key = BuiltInRegistries.ITEM.getKey(item);
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
         return "tooltip.%s.item.%s".formatted(key.getNamespace(), key.getPath());
     }
 

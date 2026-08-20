@@ -8,13 +8,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Map;
 
 public class BlackCatWallHeadBlock extends WallSkullBlock {
-    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.box(5.5, 5.5, 10, 10.5, 10.5, 16.0));
+    private static final Map<Direction, VoxelShape> SHAPES = Map.of(
+        Direction.NORTH, Block.box(5.5, 5.5, 10, 10.5, 10.5, 16.0),
+        Direction.SOUTH, Block.box(5.5, 5.5, 0, 10.5, 10.5, 6.0),
+        Direction.EAST, Block.box(0, 5.5, 5.5, 6.0, 10.5, 10.5),
+        Direction.WEST, Block.box(10, 5.5, 5.5, 16.0, 10.5, 10.5)
+    );
 
     public BlackCatWallHeadBlock(Properties properties) {
         super(SimpleSkullBlockType.VOID, properties);

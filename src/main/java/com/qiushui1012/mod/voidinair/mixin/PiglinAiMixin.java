@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PiglinAi.class)
 public class PiglinAiMixin {
-    @Inject(method = "isWearingSafeArmor", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "isWearingGold", at = @At("HEAD"), cancellable = true)
     private static void checkForGoldAmulet(LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
         if (!(livingEntity instanceof Player player)) return;
         if (AmuletManager.get(player.registryAccess()).hasAmuletInInventory(player, ViaAmulets.GOLD)) {

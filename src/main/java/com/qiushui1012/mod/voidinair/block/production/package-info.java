@@ -1,4 +1,9 @@
-@NullMarked
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@FieldsAreNonnullByDefault
 package com.qiushui1012.mod.voidinair.block.production;
 
-import org.jspecify.annotations.NullMarked;
+import com.mojang.logging.annotations.FieldsAreNonnullByDefault;
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
+
+import javax.annotation.ParametersAreNonnullByDefault;

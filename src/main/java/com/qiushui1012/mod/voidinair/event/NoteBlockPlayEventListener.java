@@ -5,7 +5,6 @@ import dev.anvilcraft.lib.v2.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.animal.feline.CatSoundVariants;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -28,7 +27,7 @@ public class NoteBlockPlayEventListener {
             pos.getX() + 0.5,
             pos.getY() + 0.5,
             pos.getZ() + 0.5,
-            SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.ROYAL).adultSounds().ambientSound(),
+            SoundEvents.CAT_AMBIENT,
             SoundSource.RECORDS,
             3.0F,
             1.0F,

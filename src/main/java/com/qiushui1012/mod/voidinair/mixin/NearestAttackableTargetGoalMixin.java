@@ -26,25 +26,24 @@ abstract class NearestAttackableTargetGoalMixin extends TargetGoal {
         method = "findTarget",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/level/ServerLevel;"
-                     + "getNearestPlayer("
+            target = "Lnet/minecraft/world/level/Level;getNearestPlayer("
                      + "Lnet/minecraft/world/entity/ai/targeting/TargetingConditions;"
-                     + "Lnet/minecraft/world/entity/LivingEntity;DDD)"
-                     + "Lnet/minecraft/world/entity/player/Player;"
+                     + "Lnet/minecraft/world/entity/LivingEntity;DDD"
+                     + ")Lnet/minecraft/world/entity/player/Player;"
         ),
         index = 0
     )
     private TargetingConditions addAmuletScare(TargetingConditions conditions) {
-        if (!this.mob.is(EntityTypeTags.BEEHIVE_INHABITORS)) return conditions;
+        if (!this.mob.getType().is(EntityTypeTags.BEEHIVE_INHABITORS)) return conditions;
         return conditions.selector(
             Optional.ofNullable(((TargetingConditionsAccessor) conditions).getSelector())
                 .map(p -> ModifiedSelector.toModified(
                     p,
-                    () -> (entity, _) ->
+                    () -> entity ->
                         entity instanceof Player player
                         && !AmuletManager.get(player.registryAccess()).hasAmuletInInventory(player, ViaAmulets.BEEHIVE)
                 ))
-                .orElse((entity, _) ->
+                .orElse(entity ->
                             entity instanceof Player player
                             && !AmuletManager.get(player.registryAccess()).hasAmuletInInventory(player, ViaAmulets.BEEHIVE)
                 )

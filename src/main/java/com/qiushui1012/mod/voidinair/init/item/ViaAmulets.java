@@ -9,7 +9,7 @@ import dev.dubhe.anvilcraft.item.property.component.amulet.GiveEffectAmulet;
 import dev.dubhe.anvilcraft.item.property.component.amulet.ImmuneDamageAmulet;
 import dev.dubhe.anvilcraft.item.property.component.amulet.ImmuneEntityAmulet;
 import dev.dubhe.anvilcraft.item.property.component.amulet.WrappedOthersAmulet;
-import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 

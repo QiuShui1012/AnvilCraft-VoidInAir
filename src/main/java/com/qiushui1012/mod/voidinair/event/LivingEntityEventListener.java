@@ -22,7 +22,7 @@ public class LivingEntityEventListener {
         if (!(event.getNewAboutToBeSetTarget() instanceof Player player)) return;
         AmuletManager manager = AmuletManager.get(player.registryAccess());
         if (
-            entity.is(EntityTypeTags.BEEHIVE_INHABITORS) && manager.hasAmuletInInventory(player, ViaAmulets.BEEHIVE)
+            entity.getType().is(EntityTypeTags.BEEHIVE_INHABITORS) && manager.hasAmuletInInventory(player, ViaAmulets.BEEHIVE)
         ) {
             event.setCanceled(true);
         }
@@ -35,15 +35,15 @@ public class LivingEntityEventListener {
         if (!(entity.getTarget() instanceof Player player)) return;
         AmuletManager manager = AmuletManager.get(player.registryAccess());
         if (
-            entity.is(EntityTypeTags.BEEHIVE_INHABITORS) && manager.hasAmuletInInventory(player, ViaAmulets.BEEHIVE)
+            entity.getType().is(EntityTypeTags.BEEHIVE_INHABITORS) && manager.hasAmuletInInventory(player, ViaAmulets.BEEHIVE)
         ) {
             entity.setTarget(null);
             if (
                 entity instanceof NeutralMob neutral
                 && neutral.getPersistentAngerTarget() != null
-                && neutral.getPersistentAngerTarget().matches(player)
+                && neutral.getPersistentAngerTarget().equals(player.getUUID())
             ) {
-                neutral.setPersistentAngerEndTime(0L);
+                neutral.setRemainingPersistentAngerTime(0);
                 neutral.setPersistentAngerTarget(null);
             }
         }

@@ -15,7 +15,7 @@ public class ViaCustomDataComponents {
     public static final DeferredHolder<ICustomDataComponent.Type<?>, BlackCatAmuletData.Type> BLACK_CAT = DF
         .register("black_cat_amulet", BlackCatAmuletData.Type::new);
 
-    public static void init(IEventBus bus) {
+    public static void register(IEventBus bus) {
         DF.register(bus);
     }
 }

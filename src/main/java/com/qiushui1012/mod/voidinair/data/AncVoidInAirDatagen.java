@@ -33,7 +33,10 @@ public class AncVoidInAirDatagen {
     }
 
     @SubscribeEvent
-    public static void onClientData(GatherDataEvent.Client event) {
-        event.createProvider(ViaSoundProvider::new);
+    public static void onClientData(GatherDataEvent event) {
+        event.getGenerator().addProvider(
+            event.includeClient(),
+            new ViaSoundProvider(event.getGenerator().getPackOutput(), event.getExistingFileHelper())
+        );
     }
 }

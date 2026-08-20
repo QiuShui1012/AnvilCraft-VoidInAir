@@ -2,18 +2,18 @@ package com.qiushui1012.mod.voidinair.block.workstation;
 
 import com.mojang.serialization.MapCodec;
 import com.qiushui1012.mod.voidinair.init.ViaSoundEvents;
-import dev.dubhe.anvilcraft.block.workstation.NeoforgeBlock;
+import dev.dubhe.anvilcraft.block.NeoforgeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.feline.Cat;
-import net.minecraft.world.entity.animal.feline.CatSoundVariant;
-import net.minecraft.world.entity.animal.feline.CatSoundVariants;
-import net.minecraft.world.entity.animal.feline.CatVariants;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.CatVariant;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -47,21 +47,23 @@ public class BlackCatBlock extends NeoforgeBlock {
     }
 
     @Override
+    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        if (entity instanceof Player) {
+            level.playSound(null, pos, ViaSoundEvents.BLACK_CAT_LAND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+        }
+        super.fallOn(level, state, pos, entity, fallDistance);
+    }
+
+    @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
     }
 
     public static void damage(Level level, BlockPos pos) {
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-        CatSoundVariant.CatSoundSet set;
-        if (level.getRandom().nextFloat() < 0.05F) {
-            set = SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.ROYAL).babySounds();
-        } else {
-            set = SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.ROYAL).adultSounds();
-        }
         level.playSound(
             null,
             pos,
-            set.eatSound().value(),
+            SoundEvents.CAT_EAT,
             SoundSource.BLOCKS,
             1.0F,
             level.getRandom().nextFloat() * 0.1F + 0.9F
@@ -71,12 +73,12 @@ public class BlackCatBlock extends NeoforgeBlock {
             null,
             null,
             pos,
-            EntitySpawnReason.SPAWN_ITEM_USE,
+            MobSpawnType.SPAWN_EGG,
             true,
             false
         );
         if (spawned != null) {
-            spawned.setVariant(level.registryAccess().getOrThrow(CatVariants.ALL_BLACK));
+            spawned.setVariant(level.registryAccess().holderOrThrow(CatVariant.ALL_BLACK));
             if (level.getRandom().nextFloat() < 0.05F) spawned.setBaby(true);
             level.gameEvent(null, GameEvent.ENTITY_PLACE, pos);
         }

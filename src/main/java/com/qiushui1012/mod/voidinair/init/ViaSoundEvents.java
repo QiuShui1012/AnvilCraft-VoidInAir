@@ -43,7 +43,7 @@ public class ViaSoundEvents {
         () -> SoundEvent.createVariableRangeEvent(AncVoidInAir.of("block.black_cat.use"))
     );
 
-    public static void init(IEventBus modEventBus) {
+    public static void register(IEventBus modEventBus) {
         ViaSoundEvents.REGISTER.register(modEventBus);
     }
 }

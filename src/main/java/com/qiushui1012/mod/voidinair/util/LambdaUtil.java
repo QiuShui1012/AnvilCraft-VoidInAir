@@ -1,7 +1,8 @@
 package com.qiushui1012.mod.voidinair.util;
 
 import org.jetbrains.annotations.UnknownNullability;
-import org.jspecify.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public class LambdaUtil {

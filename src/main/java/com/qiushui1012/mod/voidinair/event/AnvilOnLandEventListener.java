@@ -6,7 +6,7 @@ import dev.anvilcraft.lib.v2.util.MathUtil;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
@@ -17,9 +17,9 @@ public class AnvilOnLandEventListener {
         if (!event.getEntity().getBlockState().is(ModBlocks.TRANSCENDENCE_ANVIL)) return;
         if (event.getFallDistance() + 1 < 20) return;
 
-        ServerLevel level = event.getLevel();
+        Level level = event.getLevel();
         BlockPos anvilPos = event.getPos();
-        if (!MathUtil.isInRange(anvilPos.getY(), level.getMinY(), level.getMinY() + 10)) return;
+        if (!MathUtil.isInRange(anvilPos.getY(), level.getMinBuildHeight(), level.getMinBuildHeight() + 10)) return;
 
         BlockPos voidMatterBlockPos = anvilPos.below();
         if (!level.getBlockState(voidMatterBlockPos).is(ModBlocks.VOID_MATTER_BLOCK)) return;
@@ -36,13 +36,10 @@ public class AnvilOnLandEventListener {
 
     @SubscribeEvent
     public static void handleBlackCatAnvilOnLand(AnvilEvent.OnLand event) {
-        if (event.getEntity().getBlockState().is(ViaBlocks.BLACK_CAT)) {
-            if (event.getFallDistance() > 1) {
-                ServerLevel level = event.getLevel();
-                if (level.getRandom().nextFloat() < 0.01F) {
-                    BlackCatBlock.damage(level, event.getPos());
-                }
-            }
-        }
+        if (!event.getEntity().getBlockState().is(ViaBlocks.BLACK_CAT)) return;
+        if (!(event.getFallDistance() > 1)) return;
+        Level level = event.getLevel();
+        if (!(level.getRandom().nextFloat() < 0.01F)) return;
+        BlackCatBlock.damage(level, event.getPos());
     }
 }

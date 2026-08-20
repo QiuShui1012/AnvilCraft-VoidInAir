@@ -19,7 +19,7 @@ public class ViaCriterionTriggers {
         VoidFountainCreateTrigger::new
     );
 
-    public static void init(IEventBus modEventBus) {
+    public static void register(IEventBus modEventBus) {
         REGISTER.register(modEventBus);
     }
 }

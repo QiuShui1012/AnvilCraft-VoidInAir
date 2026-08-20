@@ -1,9 +1,9 @@
 repositories {
     mavenLocal()
-    exclusiveContent {
+    exclusiveContent { // AnvilLib, Ageratum, AnvilCraft
         forRepositories(
             mavenCentral(),
-            maven { // Anvil Lib
+            maven {
                 name = "Cjsah Maven"
                 url = "https://server.cjsah.net:1002/maven/"
                 content {

@@ -10,7 +10,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BlackCatHeadBlock extends SkullBlock {
-    private static final VoxelShape SHAPE = Block.column(5.0, 0.0, 5.0);
+    private static final VoxelShape SHAPE = Block.box(5.5, 0.0, 5.5, 10.5, 5.0, 10.5);
 
     public BlackCatHeadBlock(Properties properties) {
         super(SimpleSkullBlockType.VOID, properties);

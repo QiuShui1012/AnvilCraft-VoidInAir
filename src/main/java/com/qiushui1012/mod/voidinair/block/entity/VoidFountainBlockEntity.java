@@ -2,10 +2,12 @@ package com.qiushui1012.mod.voidinair.block.entity;
 
 import com.qiushui1012.mod.voidinair.AncVoidInAir;
 import dev.anvilcraft.lib.v2.util.MathUtil;
-import dev.dubhe.anvilcraft.block.storage.VoidMatterBlock;
+import dev.dubhe.anvilcraft.block.VoidMatterBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -14,11 +16,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 public class VoidFountainBlockEntity extends BlockEntity {
     private int cooldown = 0;
@@ -29,22 +29,22 @@ public class VoidFountainBlockEntity extends BlockEntity {
 
     // region 持久化
     @Override
-    protected void saveAdditional(ValueOutput output) {
-        super.saveAdditional(output);
-        output.putInt("cooldown", this.cooldown);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putInt("cooldown", this.cooldown);
     }
 
     @Override
-    protected void loadAdditional(ValueInput input) {
-        super.loadAdditional(input);
-        this.cooldown = input.getIntOr("cooldown", AncVoidInAir.CONFIG.voidFountainCooldown);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        this.cooldown = tag.contains("cooldown") ? tag.getInt("cooldown") : AncVoidInAir.CONFIG.voidFountainCooldown;
     }
     // endregion
 
     public void tick(ServerLevel level) {
         if (!this.processCooldown()) return;
         this.resetCooldown();
-        if (!MathUtil.isInRange(this.getBlockPos().getY(), level.getMinY(), level.getMinY() + 8)) return;
+        if (!MathUtil.isInRange(this.getBlockPos().getY(), level.getMinBuildHeight(), level.getMinBuildHeight() + 8)) return;
 
         BlockState aroundState = this.getAroundBlock(level);
         if (aroundState == null) return;
@@ -107,7 +107,7 @@ public class VoidFountainBlockEntity extends BlockEntity {
             return ModBlocks.EARTH_CORE_SHARD_ORE.getDefaultState();
         } else {
             if (!around.isAir() && randomized < 0.43) return around;
-            return VoidMatterBlock.voidDecay(level, level.getRandom());
+            return VoidMatterBlock.voidDecay(level, BlockPos.ZERO, around, level.getRandom());
         }
     }
 }

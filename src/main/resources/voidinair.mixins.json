@@ -1,19 +1,19 @@
 {
   "required": true,
   "package": "com.qiushui1012.mod.voidinair.mixin",
-  "compatibilityLevel": "JAVA_25",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "GuardianAttackGoalMixin",
     "GuardianAttackSelectorMixin",
-    "LivingEntityMixin",
-    "MapItemSavedDataMixin",
     "NearestAttackableTargetGoalMixin",
     "PiglinAiMixin",
+    "PiglinNeutralArmorEntityPredicateMixin",
     "PowderSnowBlockMixin",
     "TargetingConditionsMixin"
   ],
   "client": [
-    "LevelEventHandlerMixin",
+    "ClientLevelMixin",
+    "ClientPacketListenerMixin",
     "SkullBlockRendererMixin"
   ],
   "mixinextras": {
