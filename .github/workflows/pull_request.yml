@@ -83,3 +83,4 @@ jobs:
             dev.anvilcraft.lib:anvillib-neoforge-1.21.1:${{ steps.versions.outputs.versions_anvillib }}
             dev.anvilcraft.resource:ageratum-neoforge-1.21.1:${{ steps.versions.outputs.versions_ageratum }}
             dev.dubhe:anvilcraft-neoforge-1.21.1:${{ steps.versions.outputs.versions_anvilcraft }}
+          quiet-setup: True
