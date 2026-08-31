@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=east": {
-      "model": "anvilcraft:block/black_cat",
+      "model": "voidinair:block/black_cat",
       "y": 270
     },
     "facing=north": {
-      "model": "anvilcraft:block/black_cat",
+      "model": "voidinair:block/black_cat",
       "y": 180
     },
     "facing=south": {
-      "model": "anvilcraft:block/black_cat"
+      "model": "voidinair:block/black_cat"
     },
     "facing=west": {
-      "model": "anvilcraft:block/black_cat",
+      "model": "voidinair:block/black_cat",
       "y": 90
     }
   }

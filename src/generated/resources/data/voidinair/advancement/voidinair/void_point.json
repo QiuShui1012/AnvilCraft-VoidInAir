@@ -1,0 +1,26 @@
+{
+  "parent": "voidinair:voidinair/root",
+  "criteria": {
+    "create_void_fountain": {
+      "trigger": "voidinair:void_fountain_crate"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.voidinair.void_point.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "voidinair:void_fountain"
+    },
+    "title": {
+      "translate": "advancements.voidinair.void_point.title"
+    }
+  },
+  "requirements": [
+    [
+      "create_void_fountain"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

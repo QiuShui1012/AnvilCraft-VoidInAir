@@ -1,0 +1,33 @@
+{
+  "parent": "voidinair:voidinair/void_totem_consumed",
+  "criteria": {
+    "has_void_amulet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "voidinair:void_amulet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.voidinair.void_amulet.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "voidinair:void_amulet"
+    },
+    "title": {
+      "translate": "advancements.voidinair.void_amulet.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_void_amulet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

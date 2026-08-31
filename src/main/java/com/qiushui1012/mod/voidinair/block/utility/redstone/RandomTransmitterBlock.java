@@ -408,7 +408,7 @@ public class RandomTransmitterBlock extends Block {
 
     public static final AABB CUBE_BB = new AABB(0.375, 0.375, 0.375, 0.625, 0.625, 0.625)
         .inflate(0.001);
-    public static final VoxelShape CUBE = Block.box(4, 4, 4, 12, 12, 12);
+    public static final VoxelShape CUBE = Block.box(6, 6, 6, 10, 10, 10);
     public static final Map<Direction, AABB> TRANSMITTER_BBS = ImmutableMap.of(
         Direction.NORTH,
         new AABB(0.4375, 0.4375, 0.0, 0.5625, 0.5625, 0.4375).inflate(0.001),
@@ -430,9 +430,9 @@ public class RandomTransmitterBlock extends Block {
         Direction.SOUTH,
         ShapeUtil.rotate(Direction.Axis.Y, 180, RandomTransmitterBlock.TRANSMITTER_NORTH),
         Direction.WEST,
-        ShapeUtil.rotate(Direction.Axis.Y, 270, RandomTransmitterBlock.TRANSMITTER_NORTH),
-        Direction.EAST,
         ShapeUtil.rotate(Direction.Axis.Y, 90, RandomTransmitterBlock.TRANSMITTER_NORTH),
+        Direction.EAST,
+        ShapeUtil.rotate(Direction.Axis.Y, 270, RandomTransmitterBlock.TRANSMITTER_NORTH),
         Direction.DOWN,
         ShapeUtil.rotate(Direction.Axis.X, 90, RandomTransmitterBlock.TRANSMITTER_NORTH),
         Direction.UP,

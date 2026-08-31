@@ -26,7 +26,7 @@ public class ViaItemGroup extends DisplayItemsGenerator {
             .displayItems(LambdaUtil::noop)
             .title(REGISTRUM.addLang("itemGroup", AncVoidInAir.of("tab"), "AnvilCraft: Void in Air"))
             .displayItems(new ViaItemGroup())
-            .withTabsBefore(ModItemGroups.ANVILCRAFT_BUILD_BLOCK.getId())
+            .withTabsBefore(ModItemGroups.ANVILCRAFT_BUILDING_BLOCKS.getId(), ModItemGroups.ANVILCRAFT_ITEMS.getId())
             .build()
     );
 

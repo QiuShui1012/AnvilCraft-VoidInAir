@@ -1,0 +1,33 @@
+{
+  "parent": "voidinair:voidinair/root",
+  "criteria": {
+    "has_void_totem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "voidinair:totem_of_void"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.voidinair.void_totem.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "voidinair:totem_of_void"
+    },
+    "title": {
+      "translate": "advancements.voidinair.void_totem.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_void_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
