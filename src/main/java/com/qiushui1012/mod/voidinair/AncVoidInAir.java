@@ -11,6 +11,7 @@ import com.qiushui1012.mod.voidinair.init.item.ViaAmuletTypes;
 import com.qiushui1012.mod.voidinair.init.item.ViaCustomDataComponents;
 import com.qiushui1012.mod.voidinair.init.item.ViaItemGroup;
 import com.qiushui1012.mod.voidinair.init.item.ViaItems;
+import com.qiushui1012.mod.voidinair.init.loot.ViaLootItemConditions;
 import com.qiushui1012.mod.voidinair.item.totem.TotemOfVoidHandler;
 import dev.anvilcraft.lib.v2.config.ConfigManager;
 import dev.anvilcraft.lib.v2.network.register.NetworkRegistrar;
@@ -42,6 +43,7 @@ public class AncVoidInAir {
         ViaAmuletTypes.register(modEventBus);
         ViaCustomDataComponents.register(modEventBus);
         ViaCriterionTriggers.register(modEventBus);
+        ViaLootItemConditions.register(modEventBus);
         ViaSoundEvents.register(modEventBus);
         modEventBus.addListener(AncVoidInAir::onSetup);
         modEventBus.addListener(AncVoidInAir::registerPayload);

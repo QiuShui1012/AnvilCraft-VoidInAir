@@ -2,6 +2,7 @@ package com.qiushui1012.mod.voidinair.data;
 
 import com.qiushui1012.mod.voidinair.data.advancement.ViaAdvancementsHandler;
 import com.qiushui1012.mod.voidinair.data.lang.ViaLangHandler;
+import com.qiushui1012.mod.voidinair.data.provider.ViaLootTableProvider;
 import com.qiushui1012.mod.voidinair.data.provider.ViaSoundProvider;
 import com.qiushui1012.mod.voidinair.data.recipe.ViaRecipeHandler;
 import com.qiushui1012.mod.voidinair.data.tag.ViaTagHandler;
@@ -33,10 +34,14 @@ public class AncVoidInAirDatagen {
     }
 
     @SubscribeEvent
-    public static void onClientData(GatherDataEvent event) {
+    public static void onData(GatherDataEvent event) {
         event.getGenerator().addProvider(
             event.includeClient(),
             new ViaSoundProvider(event.getGenerator().getPackOutput(), event.getExistingFileHelper())
+        );
+        event.getGenerator().addProvider(
+            event.includeServer(),
+            new ViaLootTableProvider(event.getGenerator().getPackOutput(), event.getLookupProvider())
         );
     }
 }

@@ -3,6 +3,7 @@
   "package": "com.qiushui1012.mod.voidinair.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "CatMixin",
     "GuardianAttackGoalMixin",
     "GuardianAttackSelectorMixin",
     "NearestAttackableTargetGoalMixin",
