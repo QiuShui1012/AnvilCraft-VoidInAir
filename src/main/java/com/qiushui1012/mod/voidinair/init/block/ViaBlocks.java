@@ -14,6 +14,7 @@ import dev.anvilcraft.lib.v2.registrum.providers.ProviderType;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import dev.dubhe.anvilcraft.block.batch.BaseBatchCraftingBlock;
+import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.util.DataGenUtil;
@@ -76,6 +77,7 @@ public class ViaBlocks {
                 .save(provider);
         })
         .simpleItem()
+        .tag(BlockTags.ANVIL, ModBlockTags.NON_MAGNETIC, ModBlockTags.CANT_BROKEN_ANVIL)
         .register();
 
     public static final BlockEntry<VoidFountainBlock> VOID_FOUNTAIN = REGISTRUM
