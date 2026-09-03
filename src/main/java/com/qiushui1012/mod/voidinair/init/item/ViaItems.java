@@ -36,6 +36,7 @@ public class ViaItems {
                 .define('M', ModItems.VOID_MATTER)
                 .save(provider);
         })
+        .tag(ModItemTags.TOTEM)
         .register();
 
     public static final ItemEntry<Item> VOID_AMULET = REGISTRUM
