@@ -2,6 +2,7 @@
   "type": "anvilcraft:mesh",
   "ingredients": [
     {
+      "count": 64,
       "items": "voidinair:deepslate_chips"
     }
   ],

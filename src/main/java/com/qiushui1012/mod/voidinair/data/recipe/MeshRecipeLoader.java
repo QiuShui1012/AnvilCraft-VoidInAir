@@ -10,7 +10,7 @@ import net.minecraft.world.item.Items;
 public class MeshRecipeLoader {
     public static void init(RegistrumRecipeProvider provider) {
         MeshRecipe.builder()
-            .requires(ViaBlocks.DEEPSLATE_CHIPS)
+            .requires(ViaBlocks.DEEPSLATE_CHIPS, 64)
             .result(ViaBlocks.DEEPSLATE_CHIPS, 0.5F)
             .result(Items.REDSTONE, 0.015F)
             .result(Items.LAPIS_LAZULI, 0.08F)
