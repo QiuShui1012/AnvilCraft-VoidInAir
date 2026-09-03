@@ -46,7 +46,7 @@ public class ViaItems {
         .recipe((ctx, provider) -> {
             JewelCraftingRecipe.builder()
                 .requires(ModItems.SILVER_INGOT)
-                .requires(ModBlocks.VOID_MATTER_BLOCK)
+                .requires(ModBlocks.VOID_MATTER_BLOCK, 2)
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })

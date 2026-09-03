@@ -1,6 +1,7 @@
 package com.qiushui1012.mod.voidinair.item.property.amulet;
 
 import com.mojang.serialization.MapCodec;
+import com.qiushui1012.mod.voidinair.init.entity.ViaDamageTypeTags;
 import com.qiushui1012.mod.voidinair.init.item.ViaAmuletTypes;
 import com.qiushui1012.mod.voidinair.item.totem.TotemOfVoidHandler;
 import dev.dubhe.anvilcraft.item.property.component.amulet.IAmulet;
@@ -8,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
 
 public record VoidAmulet() implements IAmulet {
@@ -15,8 +17,13 @@ public record VoidAmulet() implements IAmulet {
 
     @Override
     public void inventoryTick(ServerPlayer player, ItemStack amulet, boolean isEnabled) {
-        if (!isEnabled) return;
+        if (!isEnabled || player.getY() > player.level().getMinBuildHeight()) return;
         TotemOfVoidHandler.saveEntityFromVoid(player, null);
+    }
+
+    @Override
+    public boolean shouldImmune(ServerPlayer player, DamageSource source) {
+        return source.is(ViaDamageTypeTags.VOID_AMULET_VALID);
     }
 
     @Override

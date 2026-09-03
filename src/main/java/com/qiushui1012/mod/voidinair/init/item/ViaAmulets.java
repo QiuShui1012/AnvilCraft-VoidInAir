@@ -3,6 +3,7 @@ package com.qiushui1012.mod.voidinair.init.item;
 import com.qiushui1012.mod.voidinair.init.entity.ViaDamageTypeTags;
 import com.qiushui1012.mod.voidinair.init.entity.ViaEntityTypeTags;
 import com.qiushui1012.mod.voidinair.item.property.amulet.BlackCatAmulet;
+import com.qiushui1012.mod.voidinair.item.property.amulet.VoidAmulet;
 import dev.dubhe.anvilcraft.init.item.ModAmulets;
 import dev.dubhe.anvilcraft.item.property.component.amulet.DoNothingAmulet;
 import dev.dubhe.anvilcraft.item.property.component.amulet.GiveEffectAmulet;
@@ -14,9 +15,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
 public class ViaAmulets {
-    public static final ImmuneDamageAmulet VOID = ImmuneDamageAmulet.builder()
-        .immune(ViaDamageTypeTags.VOID_AMULET_VALID)
-        .build();
+    public static final VoidAmulet VOID = new VoidAmulet();
     public static final ImmuneDamageAmulet SNOWFLAKE = ImmuneDamageAmulet.builder()
         .immune(ViaDamageTypeTags.SNOWFLAKE_AMULET_VALID)
         .build();
