@@ -6,12 +6,13 @@ import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.MeshRecipe;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 
 public class MeshRecipeLoader {
     public static void init(RegistrumRecipeProvider provider) {
         MeshRecipe.builder()
             .requires(ViaBlocks.DEEPSLATE_CHIPS, 64)
-            .result(ViaBlocks.DEEPSLATE_CHIPS, 0.5F)
+            .result(ViaBlocks.DEEPSLATE_CHIPS, BinomialDistributionGenerator.binomial(64, 0.5F))
             .result(Items.REDSTONE, 0.015F)
             .result(Items.LAPIS_LAZULI, 0.08F)
             .result(Items.GOLD_NUGGET, 0.08F)
