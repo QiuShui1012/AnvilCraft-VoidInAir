@@ -18,7 +18,7 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.08
+        "p": 0.015
       },
       "id": "minecraft:redstone"
     },
@@ -34,7 +34,7 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.05
+        "p": 0.08
       },
       "id": "minecraft:gold_nugget"
     },
@@ -42,15 +42,15 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.05
+        "p": 0.01
       },
-      "id": "minecraft:iron_nugget"
+      "id": "minecraft:iron_ingot"
     },
     {
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.02
+        "p": 0.005
       },
       "id": "minecraft:coal"
     },
@@ -58,7 +58,7 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.01
+        "p": 0.005
       },
       "id": "minecraft:diamond"
     },
@@ -66,7 +66,7 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.01
+        "p": 0.005
       },
       "id": "minecraft:emerald"
     },
@@ -74,7 +74,7 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.01
+        "p": 0.002
       },
       "id": "anvilcraft:earth_core_shard"
     },
@@ -82,7 +82,7 @@
       "count": {
         "type": "minecraft:binomial",
         "n": 1.0,
-        "p": 0.01
+        "p": 0.002
       },
       "id": "anvilcraft:void_matter"
     }
