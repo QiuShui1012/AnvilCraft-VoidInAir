@@ -51,6 +51,7 @@ public class ViaItems {
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> SNOWFLAKE_AMULET = REGISTRUM
@@ -67,6 +68,7 @@ public class ViaItems {
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> BEEHIVE_AMULET = REGISTRUM
@@ -82,6 +84,7 @@ public class ViaItems {
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> GOLD_AMULET = REGISTRUM
@@ -96,6 +99,7 @@ public class ViaItems {
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> DOLPHIN_AMULET = REGISTRUM
@@ -111,6 +115,7 @@ public class ViaItems {
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> PUMPKIN_AMULET = REGISTRUM
@@ -126,6 +131,7 @@ public class ViaItems {
                 .result(ctx.get().getDefaultInstance())
                 .save(provider, ctx.getId().withPrefix("jewel_crafting/"));
         })
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> ANVILCRAFT_AMULET = REGISTRUM
@@ -134,6 +140,7 @@ public class ViaItems {
         .properties(properties -> properties
             .component(ModComponents.AMULET, ViaAmulets.ANVILCRAFT)
         )
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> BLACK_CAT_AMULET = REGISTRUM
@@ -141,6 +148,7 @@ public class ViaItems {
         .properties(properties -> properties
             .component(ModComponents.AMULET, ViaAmulets.BLACK_CAT)
         )
+        .tag(ModItemTags.AMULET)
         .register();
 
     public static final ItemEntry<Item> CRIMSON_BOUND_MATTER = REGISTRUM
