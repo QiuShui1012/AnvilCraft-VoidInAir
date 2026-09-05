@@ -12,5 +12,6 @@ public class ViaLangHandler {
         AdvancementLang.init(provider);
         ConfigScreenLang.init(provider);
         ItemTooltipLang.init(provider);
+        OtherLang.init(provider);
     }
 }
